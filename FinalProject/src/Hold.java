@@ -5,6 +5,7 @@ public class Hold {
 	private Item item;
 	private String datePlaced;
 	private String dateExpires;
+	private Location pickUpLocation = item.location;
 	
 	public Hold(Item item, String datePlaced) {
 		this.setItem(item);
@@ -16,6 +17,11 @@ public class Hold {
 		this(item, datePlaced);
 		this.setDateExpires(dateExpires);
 	}
+	
+	public Hold(Item item, String datePlaced, String dateExpires, Location pickUpLocation) {
+		this(item, datePlaced, dateExpires);
+		this.pickUpLocation = pickUpLocation;
+	}	
 	
 	
 	//-------------GETTERS AND SETTERS---------------------
@@ -46,6 +52,14 @@ public class Hold {
 	
 	public void setDateExpires() {
 		// Overload setDateExpires to automatically set to 2 weeks
+	}
+
+	public Location getPickUpLocation() {
+		return pickUpLocation;
+	}
+
+	public void setPickUpLocation(Location pickUpLocation) {
+		this.pickUpLocation = pickUpLocation;
 	}
 	
 }
