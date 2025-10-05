@@ -5,12 +5,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
- * Log in page to input user name and password
+ * Log in page to input user name and password.
  */
 public class LogInPane extends VBox{
 	private String password;
 	private String username;
-	private Button logInBtn = new Button("Log In");
 	
 	public LogInPane() {
 		super(10);
@@ -55,15 +54,4 @@ public class LogInPane extends VBox{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Button getLogInBtn() {
-		return logInBtn;
-	}
-
-	public void setLogInBtn(Button logInBtn) {
-		this.logInBtn = logInBtn;
-	}
-
-	
-	
 }

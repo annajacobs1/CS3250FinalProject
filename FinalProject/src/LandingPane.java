@@ -1,3 +1,4 @@
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -5,6 +6,9 @@ import javafx.scene.layout.GridPane;
  */
 public class LandingPane extends GridPane{
 	public LandingPane() {
-		// TODO: Decide what to put on the home page
+		if(Main.getUser() != null) {
+			Label welcomeLabel = new Label("Welcome in, " + Main.getUser().getFirstName());
+			add(welcomeLabel, 0, 0);
+		}
 	}
 }

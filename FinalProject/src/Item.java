@@ -1,4 +1,4 @@
-import java.awt.Image;
+import javafx.scene.image.Image;
 
 /**
  * Represent any item that belongs to the library.
@@ -10,10 +10,11 @@ public class Item {
 	protected String callNum;
 	protected Location location;
 	protected Section section;
-	protected Image image;	// TODO: add default blank image
+	protected Image image = new Image("images/default_cover.jpg");
 	private boolean circulating = true;
 	private boolean checkedOut = false;
 	private String dueDate;
+	private int circulations;
 	
 	public Item(String recordNum, int barcode, String title, String callNum, 
 			Location location, Section section) {
@@ -99,5 +100,21 @@ public class Item {
 	public void setDueDate(String dueDate) {
 		// TODO validate date format
 		this.dueDate = dueDate;
+	}
+
+	public int getCirculations() {
+		return circulations;
+	}
+
+	public void setCirculations(int circulations) {
+		this.circulations = circulations;
+	}
+	
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 }

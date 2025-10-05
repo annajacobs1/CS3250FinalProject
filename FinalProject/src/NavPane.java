@@ -1,48 +1,52 @@
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 
 /**
  * Main navigation bar set up using a FlowPane
  */
 public class NavPane extends FlowPane {
-	// on button clicks, current page will be changed. MainPane
-	// can access this member to set center
-	private Pane currentPage;
+	// Access to current session user to manage which elements appear
+	User user = Main.getUser();
+	// NavPane must be aware of parent MainPane to be able to setCenter
+	private MainPane mainPane;
 	
-	public NavPane(User user) {
+	public NavPane(MainPane mainPane) {
+		this.mainPane = mainPane;
+		
 		// Button to navigate to landing page
 		Button homeBtn = new Button("Home");
 		getChildren().add(homeBtn);
+		// Default currentPage is a home page
+		mainPane.setCenterPane(new LandingPane());
 		
-		// Button to navigate to page that lists all items (TO BE CREATED)
+		// Button to navigate to page that lists all items
 		Button catalogBtn = new Button("Explore the Catalog");
 		getChildren().add(catalogBtn);
 		
-		// Button to navigate to page that lists all patrons (TO BE CREATED)
+		// Button to navigate to page that lists all patrons
 		// (should only be visible to Users of type Employee
+		Button patronsBtn = new Button("View Patrons");
 		if(user instanceof Employee) {
-			Button patronsBtn = new Button("View Patrons");
 			getChildren().add(patronsBtn);
 		}
 		
-		// Button to navigate to page to check out an item (TO BE CREATED)
+		// Button to navigate to page to check out an item
 		Button checkOutBtn = new Button("Check Out");
 		getChildren().add(checkOutBtn);
 		
-		// Button to navigate to a page to check in an item (TO BE CREATED)
+		// Button to navigate to a page to check in an item
 		Button checkInBtn = new Button("Check In");
 		getChildren().add(checkInBtn);
 		
-		// Button to navigate to Reports page (TO BE CREATED).
+		// Button to navigate to Reports page.
 		// This page allow users to  view various lists (Holds, overdue items, 
 		// patrons with expired cards, etc.). This page should only be visible to Employees
+		Button reportsBtn = new Button("Reports");
 		if(user instanceof Employee) {
-			Button reportsBtn = new Button("Reports");
 			getChildren().add(reportsBtn);
 		}
 		
-		// Button to view your account information (TO BE CREATED)
+		// Button to view your account information
 		// Probably only necessary for Patron users
 		Button accountBtn = new Button("Account");
 		getChildren().add(accountBtn);
@@ -51,20 +55,47 @@ public class NavPane extends FlowPane {
 		Button logOutBtn = new Button("Log Out");
 		getChildren().add(logOutBtn);
 		
+		
+		// BUTTON CLICK EVENTS
 		homeBtn.setOnAction(event -> {
-			currentPage = new LandingPane();
+			mainPane.setCenterPane(new LandingPane());
 		});
 		
 		logOutBtn.setOnAction(event -> {
-			currentPage = new LogInPane();
+			Main.logOut();
+		});
+		
+		patronsBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new PatronsPane());
+		});
+		
+		catalogBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new CatalogPane());
+		});
+		
+		checkInBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new CheckInPane());
+		});
+		
+		checkOutBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new CheckOutPane());
+		});
+		
+		reportsBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new ReportsPane());
+		});
+		
+		accountBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new AccountPane());
 		});
 	}
 
-	public Pane getCurrentPage() {
-		return currentPage;
+	//---------------------------GETTERS AND SETTERS---------------------------
+	public MainPane getMainPane() {
+		return mainPane;
 	}
 
-	public void setCurrentPage(Pane currentPage) {
-		this.currentPage = currentPage;
+	public void setMainPane(MainPane mainPane) {
+		this.mainPane = mainPane;
 	}
 }
