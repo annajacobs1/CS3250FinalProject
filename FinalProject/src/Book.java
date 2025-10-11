@@ -8,6 +8,17 @@ public class Book extends Item{
 	private long isbn; // ISBN's are 13 digits long so an int would not work
 	private String genre;
 	
+	//--------------------CONSTRUCTORS----------------------------
+	public Book(String recordNum, int barcode, String title, String callNum, 
+			Location location, Section section, String author, String publicationDate,
+			String edition, long isbn) {
+		super(recordNum, barcode, title, callNum, location, section);
+		this.setAuthor(author);
+		this.setPublicationDate(publicationDate);
+		this.setEdition(edition);
+		this.setIsbn(isbn);
+	}
+	
 	public Book(String recordNum, int barcode, String title, String callNum, 
 			Location location, Section section, String author, String publicationDate,
 			String edition, long isbn, String genre) {

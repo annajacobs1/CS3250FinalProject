@@ -1,21 +1,22 @@
 import java.util.ArrayList;
 
 /**
- * Represent a Patron at the library
+ * Represent a Patron at the library. Patron can check out/in items, place holds,
+ * accumulate fines and pay fines. 
  */
 public class Patron extends User{
 	private int cardNum;
 	private String dateJoined;
 	private String address;
 	private String email;
-	private int phone;
-	private ArrayList<Fine> fines;
-	private ArrayList<Hold> holds;
-	private ArrayList<Item> checkouts;
+	private String phone;
+	private ArrayList<Fine> fines = new ArrayList<Fine>();
+	private ArrayList<Hold> holds = new ArrayList<Hold>();
+	private ArrayList<Item> checkouts = new ArrayList<Item>();
 	private boolean hasStop = false;
 	
 	public Patron(String username, String password, String firstName, String lastName,
-			int cardNum, String dateJoined, String address, String email) {
+		int cardNum, String dateJoined, String address, String email) {
 		super(username, password, firstName, lastName);
 		this.setCardNum(cardNum);
 		this.setDateJoined(dateJoined);
@@ -57,11 +58,11 @@ public class Patron extends User{
 		this.email = email;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		// TODO: validate number is 10 digits
 		this.phone = phone;
 	}
@@ -105,9 +106,14 @@ public class Patron extends User{
 		// implemented)
 	}
 	
+	public boolean getHasStop() {
+		return hasStop;
+	}
+	
 	//------------------------------BEHAVIORS---------------------------
 	
 	// ability to complete following behaviors should depend on hasStop
+	
 	public void placeHold(Item item) {
 		String today = "";
 		// TODO: today should be the current date properly formatted
@@ -119,12 +125,25 @@ public class Patron extends User{
 		// TODO: search through holds and remove item
 	}
 	
-	public void checkOut(Item item) {
-		checkouts.add(item);
+	/**
+	 * 
+	 * @param item
+	 * @return true if successful checkout
+	 */
+	public boolean checkOut(Item item) {
+		if(!hasStop) {
+			checkouts.add(item);
+			item.setCheckedOut(true);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void checkIn(Item item) {
 		// TODO: find item in checkouts and remove
+		item.setCirculations(item.getCirculations() + 1);
 	}
 	
 	public void payFine(Fine fine) {

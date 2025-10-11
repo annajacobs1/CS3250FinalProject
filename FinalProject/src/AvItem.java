@@ -6,6 +6,7 @@ public class AvItem extends Item{
 	private int discCount = 1;
 	private int volume;
 	
+	//--------------CONSTRUCTORS----------------------------
 	public AvItem(String recordNum, int barcode, String title, String callNum, 
 			Location location, Section section, int publicationYear) {
 		super(recordNum, barcode, title, callNum, location, section);
@@ -18,6 +19,13 @@ public class AvItem extends Item{
 		super(recordNum, barcode, title, callNum, location, section);
 		this.setDiscCount(discCount);
 		this.setVolume(volume);
+	}
+	
+	public AvItem(String recordNum, int barcode, String title, String callNum, 
+			Location location, Section section, int publicationYear, int discCount) 
+	{
+		super(recordNum, barcode, title, callNum, location, section);
+		this.setDiscCount(discCount);
 	}
 	
 	//-------------GETTERS AND SETTERS---------------------

@@ -1,9 +1,10 @@
 import javafx.scene.image.Image;
 
 /**
- * Represent any item that belongs to the library.
+ * Represent any item that belongs to the library. Items cannot just be Items,
+ * they must be an instance of Book, AVItem, Periodical, or Toy
  */
-public class Item {
+public abstract class Item {
 	protected String recordNum;
 	protected int barcode;
 	protected String title;
@@ -91,15 +92,18 @@ public class Item {
 
 	public void setCheckedOut(boolean checkedOut) {
 		this.checkedOut = checkedOut;
+		if(checkedOut) {
+			setDueDate();
+		}
 	}
 
 	public String getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(String dueDate) {
-		// TODO validate date format
-		this.dueDate = dueDate;
+	// Due date should automatically be set when item is checked out
+	private void setDueDate() {
+		// TODO validate date format, calculate due date
 	}
 
 	public int getCirculations() {

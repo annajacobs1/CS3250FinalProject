@@ -30,6 +30,15 @@ public class NavPane extends FlowPane {
 			getChildren().add(patronsBtn);
 		}
 		
+		// Button to navigate to page that lists all employees
+		// Only visible to Employees with Add permissions
+		Button employeesBtn = new Button("View Employees");
+		if(user instanceof Employee) {
+			if(((Employee) user).getAccessLevel() == AccessLevel.ADD) {
+				getChildren().add(employeesBtn);
+			}
+		}
+		
 		// Button to navigate to page to check out an item
 		Button checkOutBtn = new Button("Check Out");
 		getChildren().add(checkOutBtn);
@@ -67,6 +76,10 @@ public class NavPane extends FlowPane {
 		
 		patronsBtn.setOnAction(event -> {
 			mainPane.setCenterPane(new PatronsPane());
+		});
+		
+		employeesBtn.setOnAction(event -> {
+			mainPane.setCenterPane(new EmployeesPane());
 		});
 		
 		catalogBtn.setOnAction(event -> {
