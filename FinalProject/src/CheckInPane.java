@@ -17,6 +17,9 @@ public class CheckInPane extends VBox{
 		private ItemInfoPane itemPane;
 		
 		public CheckInPane() {
+			// title label
+			Label checkInLbl = new Label("Check In Item");
+			
 			// input barcode for desired item
 			Label barcodeLbl = new Label("Enter the Barcode:");
 			TextField barcodeTxt = new TextField();
@@ -27,7 +30,7 @@ public class CheckInPane extends VBox{
 			// to display a message if barcode search fails
 			Label barcodeErrLbl = new Label("");
 			
-			getChildren().addAll(barcodeLbl, barcodeTxt, searchBtn, barcodeErrLbl);
+			getChildren().addAll(checkInLbl, barcodeLbl, barcodeTxt, searchBtn, barcodeErrLbl);
 			
 			// label to enter patron's card number
 			Label patronLbl = new Label("Patron Card Number");

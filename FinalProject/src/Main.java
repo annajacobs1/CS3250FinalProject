@@ -14,6 +14,7 @@ public class Main extends Application{
 	private static ArrayList<User> users = new ArrayList<User>();
 	private static ArrayList<Item> items = new ArrayList<Item>();
 	private static ArrayList<Patron> patrons = new ArrayList<Patron>();
+	private static ArrayList<Employee> employees = new ArrayList<Employee>();
 	private static Scene scene;
 	private static MainPane mainPane;
 	
@@ -26,6 +27,10 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// add users for testing
 		users.add(new Employee("ajacobs", "12345", "Anna", "Jacobs"));
+		Employee admin = new Employee("jane", "1234", "Jane", "Doe");
+		admin.setAccessLevel(AccessLevel.ADD);
+		users.add(admin);
+		
 		users.add(new Patron("bob", "123", "Bob", "Jones", 987654321, "2023/02/01",
 				"123 E 456 S Cool Rd, Ogden, UT, 84401", "bob@example.com"));
 		
@@ -38,8 +43,11 @@ public class Main extends Application{
 		setItems();
 		setUsers();
 		setPatrons();
+		setEmployees();
 		
 		LogInPane logInPane = new LogInPane();
+		
+		
 		scene = new Scene(logInPane, 750, 500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -72,10 +80,22 @@ public class Main extends Application{
 		return patrons;
 	}
 
-	public static void setPatrons() {
+	private void setPatrons() {
 		for(User user : users) {
 			if(user instanceof Patron) {
 				patrons.add((Patron)user);
+			}
+		}
+	}
+	
+	public static ArrayList<Employee> getEmployees() {
+		return employees;
+	}
+	
+	private void setEmployees() {
+		for(User user : users) {
+			if(user instanceof Employee) {
+				employees.add((Employee)user);
 			}
 		}
 	}

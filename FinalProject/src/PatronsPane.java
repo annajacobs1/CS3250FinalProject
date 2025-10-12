@@ -1,16 +1,35 @@
 import java.util.ArrayList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 
-/*
- * Page to view/search list of Patrons
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
+/**
+ * Page to view/search list of Patrons using SearchTablePane
  */
-public class PatronsPane extends Pane{
-	private ArrayList<Patron> patrons = Main.getPatrons();
-	
+public class PatronsPane extends VBox{
 	public PatronsPane() {
-		Label testLabel = new Label("THIS IS THE PATRONS PANE");
+		Label patronSearchLbl = new Label("Search Patrons");
 		
-		getChildren().add(testLabel);
+		ArrayList<String> options = new ArrayList<String>();
+		options.add("Address");
+		options.add("Card Number");
+		options.add("Email");
+		options.add("First Name");
+		options.add("Last Name");
+		options.add("Username");
+		
+		SearchTablePane<Patron> patronsPane = new SearchTablePane<Patron>(Main.getPatrons(),
+				options);
+		
+		getChildren().addAll(patronSearchLbl, patronsPane);
+		
+		if(Main.getUser() instanceof Employee) {
+			if(((Employee)Main.getUser()).getAccessLevel() == AccessLevel.ADD) {
+				Button addBtn = new Button("Add Patron");
+				// TODO: button click takes you to form to input new patron info
+				getChildren().add(addBtn);
+			}
+		}
 	}
 }
