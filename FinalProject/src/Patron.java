@@ -14,6 +14,7 @@ public class Patron extends User{
 	private ArrayList<Hold> holds = new ArrayList<Hold>();
 	private ArrayList<Item> checkouts = new ArrayList<Item>();
 	private boolean hasStop = false;
+	private Location homeLocation;
 	
 	public Patron(String username, String password, String firstName, String lastName,
 		int cardNum, String dateJoined, String address, String email) {
@@ -110,6 +111,14 @@ public class Patron extends User{
 		return hasStop;
 	}
 	
+	public Location getHomeLocation() {
+		return homeLocation;
+	}
+
+	public void setHomeLocation(Location homeLocation) {
+		this.homeLocation = homeLocation;
+	}
+	
 	//------------------------------BEHAVIORS---------------------------
 	
 	// ability to complete following behaviors should depend on hasStop
@@ -142,12 +151,38 @@ public class Patron extends User{
 	}
 	
 	public void checkIn(Item item) {
-		// TODO: find item in checkouts and remove
-		item.setCirculations(item.getCirculations() + 1);
+		for(Item i : checkouts) {
+			if(i.equals(item)) {
+				checkouts.remove(i);
+				i.setCheckedOut(false);
+				item.setCirculations(item.getCirculations() + 1);
+				break;
+			}
+		}
+		
 	}
 	
 	public void payFine(Fine fine) {
 		// TODO: remove fine from fines
 	}
 	
+	public boolean findItemInCheckouts(Item item) {
+		boolean itemFound = false;
+		for(Item i : checkouts) {
+			if(i.equals(item)) {
+				itemFound = true;
+			}
+		}
+		return itemFound;
+	}
+	
+	public boolean findItemInHolds(Item item) {
+		boolean itemFound = false;
+		for(Hold hold : holds) {
+			if(hold.getItem().equals(item)) {
+				itemFound = true;
+			}
+		}
+		return itemFound;
+	}
 }
