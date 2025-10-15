@@ -22,6 +22,19 @@ public class PatronsPane extends VBox{
 		SearchTablePane<Patron> patronsPane = new SearchTablePane<Patron>(Data.getPatrons(),
 				options);
 		
+		ArrayList<String[]> columns = new ArrayList<String[]>();
+		String[] cardNumCol = {"Card Number", "cardNum"};
+		String[] firstNameCol = {"First Name", "firstName"};
+		String[] lastNameCol = {"Last Name", "lastName"};
+		String[] usernameCol = {"Username", "username"};
+		
+		columns.add(cardNumCol);
+		columns.add(firstNameCol);
+		columns.add(lastNameCol);
+		columns.add(usernameCol);
+		
+		patronsPane.setCols(columns);
+		
 		getChildren().addAll(patronSearchLbl, patronsPane);
 		
 		if(Main.getUser() instanceof Employee) {

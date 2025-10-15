@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -46,7 +44,7 @@ public class Main extends Application{
 		
 		
 		LogInPane logInPane = new LogInPane();
-		
+		Data.loadData();
 		
 		scene = new Scene(logInPane, 750, 500);
 		primaryStage.setScene(scene);

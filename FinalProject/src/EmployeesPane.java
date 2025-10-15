@@ -20,6 +20,19 @@ public class EmployeesPane extends VBox{
 		SearchTablePane<Employee> employeesPane = new SearchTablePane<Employee>(Data.getEmployees(),
 				options);
 		
+		ArrayList<String[]> columns = new ArrayList<String[]>();
+		String[] firstNameCol = {"First Name", "firstName"};
+		String[] lastNameCol = {"Last Name", "lastName"};
+		String[] usernameCol = {"Username", "username"};
+		String[] accessCol = {"Access Level", "accessLevel"};
+		
+		columns.add(firstNameCol);
+		columns.add(lastNameCol);
+		columns.add(usernameCol);
+		columns.add(accessCol);
+		
+		employeesPane.setCols(columns);
+		
 		// TODO: this button takes you to a form to input new employee information
 		Button addBtn = new Button("Add Employee");
 		getChildren().addAll(employeeSearchLbl, employeesPane, addBtn);

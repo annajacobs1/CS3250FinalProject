@@ -2,9 +2,6 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,17 +22,21 @@ public class CatalogPane extends VBox{
 		}
 		options.add("Title");
 		
-		// This table should actually only show all the records, not individual items.
-		// Individual items only show up when you click a record.
-		
 		catalogPane = new SearchTablePane<Record>(Data.getRecords(),
 				options);
 		
 		getChildren().addAll(catalogSearchLbl, catalogPane);
 		
-		ArrayList<String> columns = new ArrayList<String>();
-		columns.add("Call Number");
-		columns.add("Next");
+		ArrayList<String[]> columns = new ArrayList<String[]>();
+		String[] imageCol = {"Image", "image"};
+		String[] callNumCol = {"Call Number", "callNum"};
+		String[] titleCol = {"Title", "title"};
+		String[] sectionCol = {"Section", "section"};
+		
+		columns.add(imageCol);
+		columns.add(callNumCol);
+		columns.add(titleCol);
+		columns.add(sectionCol);
 		
 		catalogPane.setCols("Image", columns);
 		
@@ -46,18 +47,5 @@ public class CatalogPane extends VBox{
 				getChildren().add(addBtn);
 			}
 		}
-	}
-	
-	private void setCols() {
-//		TableColumn<Record, Image> coverCol = new TableColumn<Record, Image>("Cover");
-//		coverCol.setCellValueFactory(new PropertyValueFactory<Record, Image>("image"));
-//		
-//		TableColumn<Record, String> callNumCol = new TableColumn<Record, String>("Call Number");
-//		callNumCol.setCellValueFactory(new PropertyValueFactory<Record, String>("callNum"));
-//		
-//		TableColumn<Record, String> titleCol = new TableColumn<Record, String>("Title");
-//		callNumCol.setCellValueFactory(new PropertyValueFactory<Record, String>("title"));
-//		
-//		catalogPane.table.getColumns().setAll(coverCol, callNumCol, titleCol);
 	}
 }

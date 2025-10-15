@@ -11,13 +11,6 @@ public class Data {
 	private static ArrayList<Employee> employees = new ArrayList<Employee>();
 	private static ArrayList<Record> records = new ArrayList<Record>();
 	
-	public Data() {
-		setItems();
-		setPatrons();
-		setEmployees();
-		setRecords();
-	}
-	
 	//----------------GETTERS AND SETTERS-----------------------
 	
 	private static void setItems() {
@@ -66,6 +59,13 @@ public class Data {
 	}
 	
 	//----------------------ADD/DELETE DATA-----------------------------
+	
+	public static void loadData() {
+		setItems();
+		setPatrons();
+		setEmployees();
+		setRecords();
+	}
 	
 	public static void addItem(Item item) {
 		items.add(item);

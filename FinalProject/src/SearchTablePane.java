@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 public class SearchTablePane<T> extends VBox{
 	private ComboBox<String> searchFieldMenu = new ComboBox<String>();
 	private TableView<T> table;
+	private ObservableList<T> listToDisplay;
 	
 	public SearchTablePane(ArrayList<T> itemsToDisplay, ArrayList<String> options) {
 		FlowPane searchPane = new FlowPane();
@@ -32,13 +33,10 @@ public class SearchTablePane<T> extends VBox{
 		Button searchBtn = new Button("Search");
 		searchPane.getChildren().addAll(searchFieldMenu, searchTxt, searchBtn);
 		
-		ObservableList<T> listToDisplay = FXCollections.observableList(itemsToDisplay);
-		
+		listToDisplay = FXCollections.observableList(itemsToDisplay);
 		table.setItems(listToDisplay);
 		
 		getChildren().addAll(searchPane, table);
-		
-		
 	}
 	
 	private void setFieldOptions(ArrayList<String> options) {
@@ -47,30 +45,33 @@ public class SearchTablePane<T> extends VBox{
 		}
 	}
 	
-	// TODO: another setCols for just strings
-	
-	public void setCols(String imageName, ArrayList<String> columnNames) {
+	public void setCols(String imageName, ArrayList<String[]> columnNames) {
 		
 		TableColumn<T, Image> coverCol = new TableColumn<>(imageName);
 		coverCol.setCellValueFactory(new PropertyValueFactory<T, Image>("image"));
-		this.table.getColumns().add(coverCol);
 		
-		for (String name : columnNames) {
-			TableColumn<T, String> callNumCol = new TableColumn<T, String>(name);
-			callNumCol.setCellValueFactory(new PropertyValueFactory<T, String>("callNum"));
-			this.table.getColumns().add(callNumCol);
+		ArrayList<TableColumn<T, ?>> cols = new ArrayList<TableColumn<T, ?>>();
+		cols.add(coverCol);
+		
+		for(int i = 1; i < columnNames.size(); i++) {
+			String[] col = columnNames.get(i);
+			TableColumn<T, String> newCol = new TableColumn<T, String>(col[0]);
+			newCol.setCellValueFactory(new PropertyValueFactory<T, String>(col[1]));
+			cols.add(newCol);
 		}
 		
-//		TableColumn<T, String> callNumCol = new TableColumn<T, String>("Call Number");
-//		callNumCol.setCellValueFactory(new PropertyValueFactory<T, String>("callNum"));
-//		
-//		TableColumn<T, String> titleCol = new TableColumn<T, String>("Title");
-//		callNumCol.setCellValueFactory(new PropertyValueFactory<T, String>("title"));
-//		
-//		table.getColumns().setAll(coverCol, callNumCol, titleCol);
+		this.table.getColumns().setAll(cols);
+	}
+	
+	public void setCols(ArrayList<String[]> columnNames) {
+		ArrayList<TableColumn<T, ?>> cols = new ArrayList<TableColumn<T, ?>>();
+		for(int i = 0; i < columnNames.size(); i++) {
+			String[] col = columnNames.get(i);
+			TableColumn<T, String> newCol = new TableColumn<T, String>(col[0]);
+			newCol.setCellValueFactory(new PropertyValueFactory<T, String>(col[1]));
+			cols.add(newCol);
+		}
 		
-		//TODO: Try to set up columns to automatically populate. Figure out
-		// 		how to get fields of T. Also each row should be clickable and set screen
-		//		to ItemInfoPane (probably won't be in this function...)
+		this.table.getColumns().setAll(cols);
 	}
 }
