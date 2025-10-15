@@ -71,7 +71,7 @@ public class NavPane extends FlowPane {
 		});
 		
 		logOutBtn.setOnAction(event -> {
-			Main.logOut();
+			LogInPane.logOut();
 		});
 		
 		patronsBtn.setOnAction(event -> {

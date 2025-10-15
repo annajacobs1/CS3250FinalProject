@@ -35,7 +35,7 @@ public class LogInPane extends VBox{
 		logInBtn.setOnAction(event -> {
 			password = passwordTxt.getText();
 			username = usernameTxt.getText();
-			Main.validateUser(password, username);
+			validateUser(password, username);
 		});
 	}
 
@@ -53,5 +53,47 @@ public class LogInPane extends VBox{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	//-------------------------LOG IN CONTROLS-----------------------------
+	
+	/**
+	 * Given a user name and password, find correct user and set user for the session.
+	 * Log in to the application by setting the scene root to mainPane.
+	 */
+	public static void validateUser(String password, String username) {
+		User foundUser = null;
+		for(User user : Data.getPatrons()) {
+			if(user.getPassword().equals(password)
+			&& user.getUsername().equals(username)
+			) {
+				foundUser = user;
+			}
+		}
+		for(User user : Data.getEmployees()) {
+			if(user.getPassword().equals(password)
+			&& user.getUsername().equals(username)
+			) {
+				foundUser = user;
+			}
+		}
+		if(foundUser != null) {
+			Main.setUser(foundUser);
+			// create new MainPane with every login
+			MainPane mainPane = new MainPane();
+			Main.setMainPane(mainPane);
+			Main.getScene().setRoot(mainPane);
+		}
+		
+	}
+	
+	/**
+	 * Set root to log in page, set user to null, initialize new MainPane
+	 */
+	public static void logOut() {
+		Main.getScene().setRoot(new LogInPane());
+		Main.setUser(null);
+		
+		Main.setMainPane(new MainPane());
 	}
 }

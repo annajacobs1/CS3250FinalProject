@@ -17,7 +17,7 @@ public class EmployeesPane extends VBox{
 		options.add("Last Name");
 		options.add("Username");
 		
-		SearchTablePane<Employee> employeesPane = new SearchTablePane<Employee>(Main.getEmployees(),
+		SearchTablePane<Employee> employeesPane = new SearchTablePane<Employee>(Data.getEmployees(),
 				options);
 		
 		// TODO: this button takes you to a form to input new employee information

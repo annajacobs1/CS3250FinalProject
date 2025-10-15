@@ -1,24 +1,29 @@
-import javafx.scene.image.Image;
-
 /**
  * Represent any item that belongs to the library. Items cannot just be Items,
  * they must be an instance of Book, AVItem, Periodical, or Toy
  */
-public abstract class Item {
-	protected String recordNum;
+public abstract class Item extends Record{
 	protected int barcode;
-	protected String title;
-	protected String callNum;
 	protected Location location;
 	protected Section section;
-	protected Image image = new Image("images/default_cover.jpg");
-	private boolean circulating = true;
 	private boolean checkedOut = false;
 	private String dueDate;
 	private int circulations;
 	
+	/**
+	 * Constructor for Item
+	 * 
+	 * @param recordNum
+	 * @param barcode
+	 * @param title
+	 * @param callNum
+	 * @param location
+	 * @param section
+	 * @param circulating
+	 */
 	public Item(String recordNum, int barcode, String title, String callNum, 
 			Location location, Section section) {
+		super(recordNum, title, callNum, section);
 		this.recordNum = recordNum;
 		this.barcode = barcode;
 		this.title = title;
@@ -29,14 +34,6 @@ public abstract class Item {
 	
 	//-------------GETTERS AND SETTERS---------------------
 	
-	public String getRecordNum() {
-		return this.recordNum;
-	}
-	
-	public void setRecordNum(String recordNum) {
-		this.recordNum = recordNum;
-	}
-	
 	public int getBarcode() {
 		return barcode;
 	}
@@ -45,45 +42,12 @@ public abstract class Item {
 		this.barcode = barcode;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getCallNum() {
-		return callNum;
-	}
-	
-	public void setCallNum(String callNum) {
-		// TODO: callNum should be dependent on section
-		this.callNum = callNum;
-	}
-	
 	public Location getLocation() {
 		return this.location;
 	}
 	
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-	
-	public Section getSection() {
-		return section;
-	}
-	
-	public void setSection(Section section) {
-		this.section = section;
-	}
-
-	public boolean isCirculating() {
-		return circulating;
-	}
-
-	public void setCirculating(boolean circulating) {
-		this.circulating = circulating;
 	}
 
 	public boolean isCheckedOut() {
@@ -112,13 +76,5 @@ public abstract class Item {
 
 	public void setCirculations(int circulations) {
 		this.circulations = circulations;
-	}
-	
-	public void setImage(Image image) {
-		this.image = image;
-	}
-	
-	public Image getImage() {
-		return image;
 	}
 }

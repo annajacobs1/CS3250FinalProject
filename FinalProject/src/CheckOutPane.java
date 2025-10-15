@@ -15,7 +15,7 @@ public class CheckOutPane extends VBox{
 	
 	public CheckOutPane() {
 		// title label
-		Label checkOutLbl = new Label("Check Ou Item");
+		Label checkOutLbl = new Label("Check Out Item");
 					
 		// input barcode for desired item
 		Label barcodeLbl = new Label("Enter the Barcode:");
@@ -65,7 +65,7 @@ public class CheckOutPane extends VBox{
 			
 			try {
 				barcode = Integer.parseInt(barcodeTxt.getText());
-				item = Main.searchByBarcode(barcode);
+				item = Data.searchByBarcode(barcode);
 				barcodeErrLbl.setText("");
 				
 				itemPane = new ItemInfoPane(item);
@@ -100,7 +100,7 @@ public class CheckOutPane extends VBox{
 			else {
 				try {
 					int cardNum = Integer.parseInt(patronTxt.getText());
-					patron = Main.searchByCardNum(cardNum);
+					patron = Data.searchByCardNum(cardNum);
 					
 					if(patron.checkOut(item)) {
 						successLbl.setText("Check Out Successful!");

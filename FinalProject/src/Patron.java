@@ -131,7 +131,11 @@ public class Patron extends User{
 	}
 	
 	public void removeHold(Item item) {
-		// TODO: search through holds and remove item
+		for(int i = 0; i<holds.size(); i++) {
+			if((holds.get(i).getItem()).equals(item)) {
+				holds.remove(i--);
+			}
+		}
 	}
 	
 	/**

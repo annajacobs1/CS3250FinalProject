@@ -19,7 +19,7 @@ public class PatronsPane extends VBox{
 		options.add("Last Name");
 		options.add("Username");
 		
-		SearchTablePane<Patron> patronsPane = new SearchTablePane<Patron>(Main.getPatrons(),
+		SearchTablePane<Patron> patronsPane = new SearchTablePane<Patron>(Data.getPatrons(),
 				options);
 		
 		getChildren().addAll(patronSearchLbl, patronsPane);
