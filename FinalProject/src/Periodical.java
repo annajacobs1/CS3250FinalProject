@@ -6,17 +6,16 @@ public class Periodical extends Item{
 	private int volume;
 	private String publicationDate;
 	
-	public Periodical(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, String edition, String publicationDate) {
-		super(recordNum, barcode, title, callNum, location, section);
+	public Periodical(Record record, int barcode, Location location, Section section, 
+			String edition, String publicationDate) {
+		super(record, barcode, location);
 		this.setEdition(edition);
 		this.setPublicationDate(publicationDate);
 	}
 	
-	public Periodical(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, String edition, String publicationDate,
-			int volume) {
-		this(recordNum, barcode, title, callNum, location, section, edition, publicationDate);
+	public Periodical(Record record, int barcode, Location location, Section section, 
+			String edition, String publicationDate, int volume) {
+		this(record, barcode, location, section, edition, publicationDate);
 		this.setVolume(volume);
 	}
 
@@ -42,5 +41,12 @@ public class Periodical extends Item{
 
 	public void setPublicationDate(String publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+	
+	//-------------OVERRIDE---------------------
+	@Override
+	protected void setCallNum() {
+		// TODO Logic to set callNum for new item
+		
 	}
 }

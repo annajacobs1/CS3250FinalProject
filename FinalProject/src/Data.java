@@ -10,6 +10,8 @@ public class Data {
 	private static ArrayList<Patron> patrons = new ArrayList<Patron>();
 	private static ArrayList<Employee> employees = new ArrayList<Employee>();
 	private static ArrayList<Record> records = new ArrayList<Record>();
+	private static ArrayList<Hold> holds = new ArrayList<Hold>();
+	
 	
 	//----------------GETTERS AND SETTERS-----------------------
 	
@@ -43,19 +45,28 @@ public class Data {
 
 	// Automatically set records by iterating through items
 	private static void setRecords() {
-		boolean recordExists;
-		for(Item item : items) {
-			recordExists = false;
-			for(Record record : records) {
-				if(item.getRecordNum().equals(record.getRecordNum())) {
-					recordExists = true;
-					break;
-				}
-			}
-			if(!recordExists) {
-				records.add(item);
-			}
-		}
+//		boolean recordExists;
+//		for(Item item : items) {
+//			recordExists = false;
+//			for(Record record : records) {
+//				if(item.getRecord().getRecordNum().equals(record.getRecordNum())) {
+//					recordExists = true;
+//					break;
+//				}
+//			}
+//			if(!recordExists) {
+//				records.add(item);
+//			}
+//		}
+		// TODO: File I/O for records
+	}
+	
+	public static ArrayList<Hold> getHolds() {
+		return holds;
+	}
+
+	public static void setHolds(ArrayList<Hold> holds) {
+		// TODO: File I/O
 	}
 	
 	//----------------------ADD/DELETE DATA-----------------------------
@@ -121,6 +132,20 @@ public class Data {
 			}
 		}
 		//TODO: remove record from file
+	}
+	
+	public static void addHold(Hold hold) {
+		holds.add(hold);
+		// TODO: add hold to file
+	}
+	
+	public static void removeHold(Hold hold) {
+		for(int i = 0; i < holds.size(); i++) {
+			if(holds.get(i).equals(hold)) {
+				holds.remove(i--);
+			}
+		}
+		//TODO: remove hold from file
 	}
 	
 	//----------------------SEARCH FOR DATA-----------------------------

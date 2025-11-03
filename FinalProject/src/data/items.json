@@ -1,0 +1,50 @@
+{
+	"barcode": 123456789,	// unique identifier
+	"location": "MAIN", // options: MAIN, NORTH, SOUTH, EAST, WEST
+	"section": "JUVENILE",  // options: JUVENILE, ADULT_FICTION, NON_FICTION, HIGH_SCHOOL, YOUNG_PERSON, DVD, CD, PERIODICAL, SPANISH
+	"checkedOut": false, 
+	"dueDate": "",	// will have a due date if checkedOut
+	""
+	"circulations": 55,
+	"bookData": {
+		"author": "Rowling, J.K.",
+		"publicationDate":"1997-06-27", // YYYY-MM-DD
+		"edition": "First Edition",
+		"isbn": 9780747532699,
+		"genre": "Fantasy"
+	},
+	"avData": {
+		"publicationYear": "",
+		"discCount": "",
+		"volume": ""
+	},
+	"periodicalData": {
+		"edition": "",
+		"volume": "",
+		"publicationDate": ""
+	},
+	"toyData": {
+		"pieces": ""
+	}
+},
+{
+	"barcode": 673946102,
+	"location": "NORTH", 
+	"section": "DVD",  
+	"checkedOut": true, 
+	"dueDate": "2026-10-30",
+	"circulations": 21,
+	"avData": {
+		"publicationYear": "",
+		"discCount": "",
+		"volume": ""
+	},
+	"periodicalData": {
+		"edition": "",
+		"volume": "",
+		"publicationDate": ""
+	},
+	"toyData": {
+		"pieces": ""
+	}
+},

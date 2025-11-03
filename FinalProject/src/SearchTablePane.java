@@ -1,3 +1,4 @@
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -5,10 +6,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
@@ -35,6 +38,21 @@ public class SearchTablePane<T> extends VBox{
 		
 		listToDisplay = FXCollections.observableList(itemsToDisplay);
 		table.setItems(listToDisplay);
+		
+		table.setRowFactory(table -> {
+			TableRow<T> row = new TableRow<T>() {
+				@Override
+				protected void updateItem(T item, boolean empty) {
+					super.updateItem(item, empty);
+				}
+			};
+			
+			row.setOnMouseClicked(e -> {
+				// open ItemInfoPane for 
+			});
+			
+			return row;
+		});
 		
 		getChildren().addAll(searchPane, table);
 	}

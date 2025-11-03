@@ -2,13 +2,14 @@
  * Represent any item that belongs to the library. Items cannot just be Items,
  * they must be an instance of Book, AVItem, Periodical, or Toy
  */
-public abstract class Item extends Record{
+public abstract class Item {
 	protected int barcode;
 	protected Location location;
-	protected Section section;
-	private boolean checkedOut = false;
-	private String dueDate;
-	private int circulations;
+	protected Record record;
+	protected boolean checkedOut = false;
+	protected String dueDate = "";
+	protected int circulations = 0;
+	
 	
 	/**
 	 * Constructor for Item
@@ -21,15 +22,10 @@ public abstract class Item extends Record{
 	 * @param section
 	 * @param circulating
 	 */
-	public Item(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section) {
-		super(recordNum, title, callNum, section);
-		this.recordNum = recordNum;
+	public Item(Record record, int barcode, Location location) {
+		this.record = record;
 		this.barcode = barcode;
-		this.title = title;
-		this.callNum = callNum;
 		this.location = location;
-		this.section = section;
 	}
 	
 	//-------------GETTERS AND SETTERS---------------------
@@ -77,4 +73,14 @@ public abstract class Item extends Record{
 	public void setCirculations(int circulations) {
 		this.circulations = circulations;
 	}
+	
+	public Record getRecord() {
+		return record;
+	}
+	
+	public void setRecord(Record record) {
+		this.record = record;
+	}
+	
+	protected abstract void setCallNum();
 }

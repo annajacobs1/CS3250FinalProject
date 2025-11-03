@@ -15,9 +15,9 @@ public class Toy extends Item{
 	 * @param section
 	 * @param pieces
 	 */
-	public Toy(String recordNum, int barcode, String title, String callNum, 
+	public Toy(Record record, int barcode, String title, String callNum, 
 			Location location, Section section, int pieces) {
-		super(recordNum, barcode, title, callNum, location, section);
+		super(record, barcode, location);
 		this.setPieces(pieces);
 	}
 
@@ -27,5 +27,12 @@ public class Toy extends Item{
 
 	public void setPieces(int pieces) {
 		this.pieces = pieces;
+	}
+	
+	//-------------OVERRIDE---------------------
+	@Override
+	protected void setCallNum() {
+		// TODO Logic to set callNum for new item
+		
 	}
 }

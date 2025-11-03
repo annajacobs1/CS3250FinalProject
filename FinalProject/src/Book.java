@@ -9,20 +9,18 @@ public class Book extends Item{
 	private String genre;
 	
 	//--------------------CONSTRUCTORS----------------------------
-	public Book(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, String author, String publicationDate,
-			String edition, long isbn) {
-		super(recordNum, barcode, title, callNum, location, section);
+	public Book(Record record, int barcode, Location location, String author, 
+			String publicationDate, String edition, long isbn) {
+		super(record, barcode, location);
 		this.setAuthor(author);
 		this.setPublicationDate(publicationDate);
 		this.setEdition(edition);
 		this.setIsbn(isbn);
 	}
 	
-	public Book(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, String author, String publicationDate,
-			String edition, long isbn, String genre) {
-		super(recordNum, barcode, title, callNum, location, section);
+	public Book(Record record, int barcode, Location location, String author, 
+			String publicationDate, String edition, long isbn, String genre) {
+		super(record, barcode, location);
 		this.setAuthor(author);
 		this.setPublicationDate(publicationDate);
 		this.setEdition(edition);
@@ -71,5 +69,12 @@ public class Book extends Item{
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+	//-------------OVERRIDE---------------------
+	@Override
+	protected void setCallNum() {
+		// TODO Logic to set callNum for new item
+		
 	}
 }

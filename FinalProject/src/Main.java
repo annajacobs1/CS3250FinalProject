@@ -30,16 +30,16 @@ public class Main extends Application{
 		
 		// add items for testing
 		// Two copies of the same book
-		Data.addItem(new Book("b123456", 123456789, "Title", "F Jones", Location.MAIN, Section.ADULT_FICTION, "John Jones",
-				"2020/01/01", "First", 123456789123L, "Action"));
-		Data.addItem(new Book("b123456", 246810121, "Title", "F Jones", Location.NORTH, Section.ADULT_FICTION, "John Jones",
-				"2020/01/01", "First", 123456789123L, "Action"));
-		
-		// Another two copies of the same book
-		Data.addItem(new Book("b654321", 987654321, "Another Title", "781.66 F12345 2000", Location.NORTH, Section.NON_FICTION,
-				"Jane Farr", "2000/06/07", "Second", 987654321098L));
-		Data.addItem(new Book("b654321", 109876543, "Another Title", "781.66 F12345 2000", Location.EAST, Section.NON_FICTION,
-				"Jane Farr", "2000/06/07", "Second", 987654321098L));
+//		Data.addItem(new Book("b123456", 123456789, "Title", "F Jones", Location.MAIN, Section.ADULT_FICTION, "John Jones",
+//				"2020/01/01", "First", 123456789123L, "Action"));
+//		Data.addItem(new Book("b123456", 246810121, "Title", "F Jones", Location.NORTH, Section.ADULT_FICTION, "John Jones",
+//				"2020/01/01", "First", 123456789123L, "Action"));
+//		
+//		// Another two copies of the same book
+//		Data.addItem(new Book("b654321", 987654321, "Another Title", "781.66 F12345 2000", Location.NORTH, Section.NON_FICTION,
+//				"Jane Farr", "2000/06/07", "Second", 987654321098L));
+//		Data.addItem(new Book("b654321", 109876543, "Another Title", "781.66 F12345 2000", Location.EAST, Section.NON_FICTION,
+//				"Jane Farr", "2000/06/07", "Second", 987654321098L));
 		//---------------------------------------------------------------------
 		
 		

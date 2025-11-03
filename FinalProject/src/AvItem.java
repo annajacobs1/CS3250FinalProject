@@ -7,24 +7,23 @@ public class AvItem extends Item{
 	private int volume;
 	
 	//--------------CONSTRUCTORS----------------------------
-	public AvItem(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, int publicationYear) {
-		super(recordNum, barcode, title, callNum, location, section);
+	public AvItem(Record record, int barcode, Location location, Section section,
+			int publicationYear) {
+		super(record, barcode, location);
 		this.setPublicationYear(publicationYear);
 	}
 	
-	public AvItem(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, int publicationYear, int discCount,
-			int volume) {
-		super(recordNum, barcode, title, callNum, location, section);
+	public AvItem(Record record, int barcode, Location location, Section section,
+			int publicationYear, int discCount, int volume) {
+		super(record, barcode, location);
 		this.setDiscCount(discCount);
 		this.setVolume(volume);
 	}
 	
-	public AvItem(String recordNum, int barcode, String title, String callNum, 
-			Location location, Section section, int publicationYear, int discCount) 
+	public AvItem(Record record, int barcode, Location location, Section section,
+			int publicationYear, int discCount) 
 	{
-		super(recordNum, barcode, title, callNum, location, section);
+		super(record, barcode, location);
 		this.setDiscCount(discCount);
 	}
 	
@@ -52,6 +51,13 @@ public class AvItem extends Item{
 
 	public void setVolume(int volume) {
 		this.volume = volume;
+	}
+
+	//-------------OVERRIDE---------------------
+	@Override
+	protected void setCallNum() {
+		// TODO Logic to set callNum for new item
+		
 	}
 	
 	
