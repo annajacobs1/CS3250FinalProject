@@ -13,6 +13,20 @@ public class Record {
 	protected Image image = new Image("images/default_cover.jpg");
 	protected boolean circulating = true;
 	protected Section section;
+	protected RecordType recordType;
+	protected Object typeData;
+	
+	public enum RecordType {
+		BOOK,
+		TOY,
+		AV_ITEM,
+		PERIODICAL
+	}
+	
+	
+	class BookData {
+		
+	}
 	
 	/**
 	 * Constructor for Record
@@ -24,13 +38,15 @@ public class Record {
 	 * @param section
 	 */
 	public Record(String recordNum, String title, String callNum,
-			Section section) {
+			Section section, Object typeData) {
 		this.recordNum = recordNum;
 		this.title = title;
 		this.callNum = callNum;
 		this.section = section;
+		setTypeData(typeData);
 	}
-	
+
+
 	//-------------GETTERS AND SETTERS---------------------
 	
 	
@@ -81,6 +97,17 @@ public class Record {
 	
 	public void setSection(Section section) {
 		this.section = section;
+	}
+	
+	public void setRecordType(RecordType recordType) {
+		
+	}
+	
+	private void setTypeData(Object typeData) {
+		if(typeData instanceof BookData) {
+			recordType = RecordType.BOOK;
+		}
+		
 	}
 	
 }

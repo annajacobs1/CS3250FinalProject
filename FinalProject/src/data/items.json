@@ -1,10 +1,9 @@
 {
 	"barcode": 123456789,	// unique identifier
 	"location": "MAIN", // options: MAIN, NORTH, SOUTH, EAST, WEST
-	"section": "JUVENILE",  // options: JUVENILE, ADULT_FICTION, NON_FICTION, HIGH_SCHOOL, YOUNG_PERSON, DVD, CD, PERIODICAL, SPANISH
+	"recordNum": "b12345678", // record contains item title, call number, section (to handle items where library holds many copies)
 	"checkedOut": false, 
 	"dueDate": "",	// will have a due date if checkedOut
-	""
 	"circulations": 55,
 	"bookData": {
 		"author": "Rowling, J.K.",
@@ -12,39 +11,45 @@
 		"edition": "First Edition",
 		"isbn": 9780747532699,
 		"genre": "Fantasy"
-	},
+	}
+},
+{
+	"barcode": 673946102,
+	"location": "NORTH", 
+	"recordNum": "b3294039",
+	"checkedOut": true, 
+	"dueDate": "2025-10-30",
+	"circulations": 21,
 	"avData": {
-		"publicationYear": "",
-		"discCount": "",
-		"volume": ""
-	},
+		"publicationYear": "2019",
+		"discCount": "1",
+		"volume": "" // volume is not required
+	}
+},
+{
+	"barcode": 753297674,
+	"location": "EAST", 
+	"recordNum": "b3294039", 
+	"checkedOut": false, 
+	"dueDate": "",
+	"circulations": 0,
 	"periodicalData": {
-		"edition": "",
-		"volume": "",
-		"publicationDate": ""
+		"edition": "October 2025",
+		"volume": "1",
+		"publicationDate": "2025-10-01"
 	},
 	"toyData": {
 		"pieces": ""
 	}
 },
 {
-	"barcode": 673946102,
-	"location": "NORTH", 
-	"section": "DVD",  
+	"barcode": 65983201,
+	"location": "WEST", 
+	"recordNum": "b45296834", 
 	"checkedOut": true, 
-	"dueDate": "2026-10-30",
-	"circulations": 21,
-	"avData": {
-		"publicationYear": "",
-		"discCount": "",
-		"volume": ""
-	},
-	"periodicalData": {
-		"edition": "",
-		"volume": "",
-		"publicationDate": ""
-	},
+	"dueDate": "2025-11-01",
+	"circulations": 0,
 	"toyData": {
-		"pieces": ""
+		"pieces": 12
 	}
-},
+}
