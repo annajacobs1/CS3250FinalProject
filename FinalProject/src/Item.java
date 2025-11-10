@@ -1,6 +1,6 @@
 /**
- * Represent any item that belongs to the library. Items cannot just be Items,
- * they must be an instance of Book, AVItem, Periodical, or Toy
+ * Represent any item that belongs to the library. This is a unique, physical copy of an 
+ * item. Item type is dependent on type of record.
  */
 public abstract class Item {
 	protected int barcode;

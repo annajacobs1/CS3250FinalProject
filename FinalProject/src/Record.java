@@ -6,27 +6,14 @@ import javafx.scene.image.Image;
  * and has a barcode), but is instead a way to group copies of the same item 
  * together.
  */
-public class Record {
+public abstract class Record {
 	protected String recordNum;
 	protected String title;
 	protected String callNum;
 	protected Image image = new Image("images/default_cover.jpg");
 	protected boolean circulating = true;
 	protected Section section;
-	protected RecordType recordType;
-	protected Object typeData;
-	
-	public enum RecordType {
-		BOOK,
-		TOY,
-		AV_ITEM,
-		PERIODICAL
-	}
-	
-	
-	class BookData {
-		
-	}
+
 	
 	/**
 	 * Constructor for Record
@@ -37,13 +24,10 @@ public class Record {
 	 * @param circulating
 	 * @param section
 	 */
-	public Record(String recordNum, String title, String callNum,
-			Section section, Object typeData) {
+	public Record(String recordNum, String title, Section section) {
 		this.recordNum = recordNum;
 		this.title = title;
-		this.callNum = callNum;
 		this.section = section;
-		setTypeData(typeData);
 	}
 
 
@@ -70,11 +54,6 @@ public class Record {
 		return callNum;
 	}
 	
-	public void setCallNum(String callNum) {
-		// TODO: callNum should be dependent on section
-		this.callNum = callNum;
-	}
-	
 	public boolean isCirculating() {
 		return circulating;
 	}
@@ -99,15 +78,5 @@ public class Record {
 		this.section = section;
 	}
 	
-	public void setRecordType(RecordType recordType) {
-		
-	}
-	
-	private void setTypeData(Object typeData) {
-		if(typeData instanceof BookData) {
-			recordType = RecordType.BOOK;
-		}
-		
-	}
-	
+	protected abstract void setCallNum();
 }

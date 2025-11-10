@@ -1,22 +1,26 @@
 /**
- * Represent a periodical item (like magazine and newspaper)
+ * Represent a periodical record (like magazine and newspaper)
  */
-public class Periodical extends Item{
+public class PeriodicalRecord extends Record{
 	private String edition;
 	private int volume;
 	private String publicationDate;
 	
-	public Periodical(Record record, int barcode, Location location, Section section, 
+	public PeriodicalRecord(String recordNum, String title, Section section,
 			String edition, String publicationDate) {
-		super(record, barcode, location);
+		super(recordNum, title, section);
 		this.setEdition(edition);
 		this.setPublicationDate(publicationDate);
+		setCallNum();
 	}
 	
-	public Periodical(Record record, int barcode, Location location, Section section, 
+	public PeriodicalRecord(String recordNum, String title, Section section, 
 			String edition, String publicationDate, int volume) {
-		this(record, barcode, location, section, edition, publicationDate);
+		super(recordNum, title, section);
+		this.edition = edition;
+		this.publicationDate = publicationDate;
 		this.setVolume(volume);
+		setCallNum();
 	}
 
 	public String getEdition() {

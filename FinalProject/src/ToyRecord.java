@@ -1,11 +1,11 @@
 /**
- * Represent a toy item
+ * Represent a toy record
  */
-public class Toy extends Item{
+public class ToyRecord extends Record{
 	private int pieces;
 	
 	/**
-	 * Constructor for Toy
+	 * Constructor for ToyRecord
 	 * 
 	 * @param recordNum
 	 * @param barcode
@@ -15,10 +15,10 @@ public class Toy extends Item{
 	 * @param section
 	 * @param pieces
 	 */
-	public Toy(Record record, int barcode, String title, String callNum, 
-			Location location, Section section, int pieces) {
-		super(record, barcode, location);
-		this.setPieces(pieces);
+	public ToyRecord(String recordNum, String title, Section section, int pieces) {
+		super(recordNum, title, section);
+		this.pieces = pieces;
+		setCallNum();
 	}
 
 	public int getPieces() {

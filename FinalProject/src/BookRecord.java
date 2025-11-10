@@ -1,7 +1,8 @@
+
 /**
- * Represent a Book Item
+ * Represent a record for a Book item.
  */
-public class Book extends Item{
+public class BookRecord extends Record{
 	private String author;
 	private String publicationDate;
 	private String edition;
@@ -9,23 +10,25 @@ public class Book extends Item{
 	private String genre;
 	
 	//--------------------CONSTRUCTORS----------------------------
-	public Book(Record record, int barcode, Location location, String author, 
+	public BookRecord(String recordNum, String title, String author, Section section,
 			String publicationDate, String edition, long isbn) {
-		super(record, barcode, location);
-		this.setAuthor(author);
-		this.setPublicationDate(publicationDate);
-		this.setEdition(edition);
-		this.setIsbn(isbn);
+		super(recordNum, title, section);
+		this.author = author;
+		this.publicationDate = publicationDate;
+		this.edition = edition;
+		this.isbn = isbn;
+		setCallNum();
 	}
 	
-	public Book(Record record, int barcode, Location location, String author, 
-			String publicationDate, String edition, long isbn, String genre) {
-		super(record, barcode, location);
-		this.setAuthor(author);
-		this.setPublicationDate(publicationDate);
-		this.setEdition(edition);
-		this.setIsbn(isbn);
-		this.setGenre(genre);
+	public BookRecord(String recordNum, String title, String author, Section section,
+			int barcode, String publicationDate, String edition, long isbn, String genre) {
+		super(recordNum, title, section);
+		this.author = author;
+		this.publicationDate = publicationDate;
+		this.edition = edition;
+		this.isbn = isbn;
+		this.genre = genre;
+		setCallNum();
 	}
 	
 	//-------------GETTERS AND SETTERS---------------------
@@ -74,7 +77,8 @@ public class Book extends Item{
 	//-------------OVERRIDE---------------------
 	@Override
 	protected void setCallNum() {
-		// TODO Logic to set callNum for new item
+		// TODO Logic to set callNum for book
+		this.callNum = "";
 		
 	}
 }
