@@ -3,27 +3,30 @@
  * Represent a record for a Book item.
  */
 public class BookRecord extends Record{
-	private String author;
+	private String authorLastName, authorFirstName;
 	private String publicationDate;
 	private String edition;
 	private long isbn; // ISBN's are 13 digits long so an int would not work
 	private String genre;
 	
 	//--------------------CONSTRUCTORS----------------------------
-	public BookRecord(String recordNum, String title, String author, Section section,
-			String publicationDate, String edition, long isbn) {
+	public BookRecord(String recordNum, String title, String authorLastName, String authorFirstName, 
+			Section section, String publicationDate, String edition, long isbn) {
 		super(recordNum, title, section);
-		this.author = author;
+		this.authorLastName = authorLastName;
+		this.authorFirstName = authorFirstName;
 		this.publicationDate = publicationDate;
 		this.edition = edition;
 		this.isbn = isbn;
 		setCallNum();
 	}
 	
-	public BookRecord(String recordNum, String title, String author, Section section,
-			int barcode, String publicationDate, String edition, long isbn, String genre) {
+	public BookRecord(String recordNum, String title, String authorLastName, String authorFirstName,
+			Section section, int barcode, String publicationDate, String edition, long isbn, 
+			String genre) {
 		super(recordNum, title, section);
-		this.author = author;
+		this.authorLastName = authorLastName;
+		this.authorFirstName = authorFirstName;
 		this.publicationDate = publicationDate;
 		this.edition = edition;
 		this.isbn = isbn;
@@ -33,12 +36,20 @@ public class BookRecord extends Record{
 	
 	//-------------GETTERS AND SETTERS---------------------
 
-	public String getAuthor() {
-		return author;
+	public String getAuthorFirstName() {
+		return authorFirstName;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorFirstName(String authorFirstName) {
+		this.authorFirstName = authorFirstName;
+	}
+	
+	public String getAuthorLastName() {
+		return authorLastName;
+	}
+
+	public void setAuthorLastName(String authorLastName) {
+		this.authorLastName = authorLastName;
 	}
 
 	public String getPublicationDate() {
@@ -77,7 +88,9 @@ public class BookRecord extends Record{
 	//-------------OVERRIDE---------------------
 	@Override
 	protected void setCallNum() {
-		// TODO Logic to set callNum for book
+		if(this.section == Section.NON_FICTION) {
+			
+		}
 		this.callNum = "";
 		
 	}

@@ -81,6 +81,4 @@ public abstract class Item {
 	public void setRecord(Record record) {
 		this.record = record;
 	}
-	
-	protected abstract void setCallNum();
 }

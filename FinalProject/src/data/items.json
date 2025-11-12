@@ -4,32 +4,20 @@
 	"recordNum": "b12345678", // record contains item title, call number, section (to handle items where library holds many copies)
 	"checkedOut": false, 
 	"dueDate": "",	// will have a due date if checkedOut
-	"circulations": 55,
-	"bookData": {
-		"author": "Rowling, J.K.",
-		"publicationDate":"1997-06-27", // YYYY-MM-DD
-		"edition": "First Edition",
-		"isbn": 9780747532699,
-		"genre": "Fantasy"
-	}
+	"circulations": 55
 },
 {
 	"barcode": 673946102,
 	"location": "NORTH", 
-	"recordNum": "b3294039",
+	"recordNum": "b32940391",
 	"checkedOut": true, 
 	"dueDate": "2025-10-30",
 	"circulations": 21,
-	"avData": {
-		"publicationYear": "2019",
-		"discCount": "1",
-		"volume": "" // volume is not required
-	}
 },
 {
 	"barcode": 753297674,
 	"location": "EAST", 
-	"recordNum": "b3294039", 
+	"recordNum": "b87392016", 
 	"checkedOut": false, 
 	"dueDate": "",
 	"circulations": 0,
@@ -37,9 +25,6 @@
 		"edition": "October 2025",
 		"volume": "1",
 		"publicationDate": "2025-10-01"
-	},
-	"toyData": {
-		"pieces": ""
 	}
 },
 {
