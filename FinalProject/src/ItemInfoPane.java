@@ -13,7 +13,9 @@ public class ItemInfoPane extends SplitPane{
 		VBox itemInfoBox = new VBox();
 		StackPane itemImagePane = new StackPane();
 		
-		Image itemImage = item.getRecord().getImage();
+		Record itemRecord = Data.searchByRecordNum(item.getRecordNum());
+		
+		Image itemImage = itemRecord.getImage();
 		ImageView itemImageView = new ImageView(itemImage);
 		itemImageView.setFitWidth(100);
 		itemImageView.setPreserveRatio(true);
@@ -21,10 +23,10 @@ public class ItemInfoPane extends SplitPane{
 		
 		//TODO: Change what fields show based on item type
 		// Also make it less ugly and stuff
-		Label titleLbl = new Label(item.getRecord().getTitle());
-		Label callNoLbl = new Label(item.getRecord().getCallNum());
+		Label titleLbl = new Label(itemRecord.getTitle());
+		Label callNoLbl = new Label(itemRecord.getCallNum());
 		Label locationLbl = new Label(item.getLocation().toString());
-		Label sectionLbl = new Label(item.getRecord().getSection().toString());
+		Label sectionLbl = new Label(itemRecord.getSection().toString());
 		Label circsLbl = new Label(Integer.toString(item.getCirculations()));
 		
 		itemInfoBox.getChildren().addAll(titleLbl,callNoLbl,locationLbl,sectionLbl);

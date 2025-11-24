@@ -2,10 +2,12 @@
  * Represent any item that belongs to the library. This is a unique, physical copy of an 
  * item. Item type is dependent on type of record.
  */
-public abstract class Item {
+public class Item {
 	protected int barcode;
 	protected Location location;
-	protected Record record;
+	// preferably this would hold a record, but for file i/o to work
+	// Item has to be a POJO
+	protected String recordNum;
 	protected boolean checkedOut = false;
 	protected String dueDate = "";
 	protected int circulations = 0;
@@ -22,11 +24,13 @@ public abstract class Item {
 	 * @param section
 	 * @param circulating
 	 */
-	public Item(Record record, int barcode, Location location) {
-		this.record = record;
+	public Item(String recordNum, int barcode, Location location) {
+		this.recordNum = recordNum;
 		this.barcode = barcode;
 		this.location = location;
 	}
+	
+	public Item() {};
 	
 	//-------------GETTERS AND SETTERS---------------------
 	
@@ -74,11 +78,16 @@ public abstract class Item {
 		this.circulations = circulations;
 	}
 	
-	public Record getRecord() {
-		return record;
+	public String getRecordNum() {
+		return recordNum;
 	}
 	
-	public void setRecord(Record record) {
-		this.record = record;
+	public void setRecordNum(String recordNum) {
+		this.recordNum = recordNum;
+	}
+	
+	@Override
+	public String toString() {
+		return "Record Number: " + recordNum + "\nBarcode: " + barcode + "\nLocation: " + location;
 	}
 }

@@ -72,7 +72,7 @@ public class CheckOutPane extends VBox{
 				
 				getChildren().add(itemPane);
 				
-				if(!item.isCheckedOut() && item.getRecord().isCirculating()) {
+				if(!item.isCheckedOut() && Data.searchByRecordNum(item.getRecordNum()).isCirculating()) {
 					checkOutBtn.setVisible(true);
 				}
 				else {

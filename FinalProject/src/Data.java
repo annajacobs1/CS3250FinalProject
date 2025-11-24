@@ -1,4 +1,16 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 
 /**
  * Hold ArrayLists for items, patrons, employees, and records. Handle
@@ -13,10 +25,29 @@ public class Data {
 	private static ArrayList<Hold> holds = new ArrayList<Hold>();
 	
 	
+	public Data() {
+		setRecords();
+		setItems();
+	}
+	
+	
 	//----------------GETTERS AND SETTERS-----------------------
 	
+	
 	private static void setItems() {
-		// TODO: File I/O for item list (So it persists past runtime)
+		byte[] jsonData;
+		try {
+			File jsonFile = new File("src/data/items.json");
+			ObjectMapper objectMapper = new ObjectMapper();
+			ArrayList<Item> itemsList = objectMapper.readValue(jsonFile, new TypeReference<ArrayList<Item>>(){});
+			Data.items = itemsList;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	public static ArrayList<Item> getItems(){
@@ -176,5 +207,19 @@ public class Data {
 			}
 		}
 		return patronFound;
+	}
+	
+	/**
+	 * Given a record number, iterates over patrons array and returns patron with matching
+	 * card number or null if not found
+	 */
+	public static Record searchByRecordNum(String recordNum) {
+		Record recordFound = null;
+		for(Record record : records) {
+			if(record.getRecordNum() == recordNum) {
+				recordFound = record;
+			}
+		}
+		return recordFound;
 	}
 }

@@ -58,7 +58,10 @@ public class NavPane extends FlowPane {
 		// Button to view your account information
 		// Probably only necessary for Patron users
 		Button accountBtn = new Button("Account");
-		getChildren().add(accountBtn);
+		if(user instanceof Patron) {
+			getChildren().add(accountBtn);
+		}
+		
 		
 		// Button to log out of account and take you to log in page
 		Button logOutBtn = new Button("Log Out");
