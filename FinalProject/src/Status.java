@@ -1,0 +1,9 @@
+
+public enum Status {
+	AVAILABLE,
+	CHECKED_OUT,
+	ON_HOLDSHELF,
+	IN_EVAL,
+	IN_MENDING,
+	IN_TRANSIT
+}

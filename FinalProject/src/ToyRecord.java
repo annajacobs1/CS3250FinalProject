@@ -15,10 +15,9 @@ public class ToyRecord extends Record{
 	 * @param section
 	 * @param pieces
 	 */
-	public ToyRecord(String recordNum, String title, Section section, int pieces) {
-		super(recordNum, title, section);
+	public ToyRecord(String recordNum, String title, String callNum, Section section, int pieces) {
+		super(recordNum, title, section, callNum);
 		this.pieces = pieces;
-		setCallNum();
 	}
 
 	public int getPieces() {
@@ -27,12 +26,5 @@ public class ToyRecord extends Record{
 
 	public void setPieces(int pieces) {
 		this.pieces = pieces;
-	}
-	
-	//-------------OVERRIDE---------------------
-	@Override
-	protected void setCallNum() {
-		// TODO Logic to set callNum for new item
-		
 	}
 }

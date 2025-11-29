@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 public class LogInPane extends VBox{
 	private String password;
 	private String username;
+	private static Label errorLbl = new Label();
 	
 	public LogInPane() {
 		super(10);
@@ -25,6 +26,9 @@ public class LogInPane extends VBox{
 		Label passwordLbl = new Label("Password");
 		// Text field for user to enter their password
 		PasswordField passwordTxt = new PasswordField();
+		
+		errorLbl.setText("Username or password is incorrect.");;
+		errorLbl.setVisible(false);
 		
 		// Button to click once credentials are inputted.
 		// Sets username and password members to the input
@@ -83,6 +87,8 @@ public class LogInPane extends VBox{
 			MainPane mainPane = new MainPane();
 			Main.setMainPane(mainPane);
 			Main.getScene().setRoot(mainPane);
+		} else {
+			errorLbl.setVisible(true);
 		}
 		
 	}

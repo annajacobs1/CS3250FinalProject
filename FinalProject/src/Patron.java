@@ -146,7 +146,7 @@ public class Patron extends User{
 	public boolean checkOut(Item item) {
 		if(!hasStop) {
 			checkouts.add(item);
-			item.setCheckedOut(true);
+			item.setStatus(Status.CHECKED_OUT);
 			return true;
 		}
 		else {
@@ -158,7 +158,7 @@ public class Patron extends User{
 		for(Item i : checkouts) {
 			if(i.equals(item)) {
 				checkouts.remove(i);
-				i.setCheckedOut(false);
+				i.setStatus(Status.AVAILABLE);
 				item.setCirculations(item.getCirculations() + 1);
 				break;
 			}

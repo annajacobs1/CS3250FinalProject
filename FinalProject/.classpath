@@ -7,8 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-sdk-21.0.08"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Java/jackson-annotations-2.17.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Java/jackson-core-2.17.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Java/jackson-databind-2.17.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Java/mysql-connector-j-9.5.0/mysql-connector-j-9.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

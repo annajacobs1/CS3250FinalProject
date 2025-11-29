@@ -10,28 +10,26 @@ public class BookRecord extends Record{
 	private String genre;
 	
 	//--------------------CONSTRUCTORS----------------------------
-	public BookRecord(String recordNum, String title, String authorLastName, String authorFirstName, 
-			Section section, String publicationDate, String edition, long isbn) {
-		super(recordNum, title, section);
+	public BookRecord(String recordNum, String title, String callNum, String authorLastName, 
+			String authorFirstName, Section section, String publicationDate, String edition, long isbn) {
+		super(recordNum, title, section, callNum);
 		this.authorLastName = authorLastName;
 		this.authorFirstName = authorFirstName;
 		this.publicationDate = publicationDate;
 		this.edition = edition;
 		this.isbn = isbn;
-		setCallNum();
 	}
 	
-	public BookRecord(String recordNum, String title, String authorLastName, String authorFirstName,
-			Section section, int barcode, String publicationDate, String edition, long isbn, 
+	public BookRecord(String recordNum, String title, String callNum, String authorLastName, 
+			String authorFirstName, Section section, String publicationDate, String edition, long isbn, 
 			String genre) {
-		super(recordNum, title, section);
+		super(recordNum, title, section, callNum);
 		this.authorLastName = authorLastName;
 		this.authorFirstName = authorFirstName;
 		this.publicationDate = publicationDate;
 		this.edition = edition;
 		this.isbn = isbn;
 		this.genre = genre;
-		setCallNum();
 	}
 	
 	//-------------GETTERS AND SETTERS---------------------
@@ -84,14 +82,5 @@ public class BookRecord extends Record{
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	
-	//-------------OVERRIDE---------------------
-	@Override
-	protected void setCallNum() {
-		if(this.section == Section.NON_FICTION) {
-			
-		}
-		this.callNum = "";
-		
-	}
+
 }

@@ -13,7 +13,7 @@ public class ItemInfoPane extends SplitPane{
 		VBox itemInfoBox = new VBox();
 		StackPane itemImagePane = new StackPane();
 		
-		Record itemRecord = Data.searchByRecordNum(item.getRecordNum());
+		Record itemRecord = Data.searchByRecordNum(item.getRecord().getRecordNum());
 		
 		Image itemImage = itemRecord.getImage();
 		ImageView itemImageView = new ImageView(itemImage);

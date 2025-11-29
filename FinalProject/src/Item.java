@@ -3,14 +3,12 @@
  * item. Item type is dependent on type of record.
  */
 public class Item {
-	protected int barcode;
+	protected long barcode;
 	protected Location location;
-	// preferably this would hold a record, but for file i/o to work
-	// Item has to be a POJO
-	protected String recordNum;
-	protected boolean checkedOut = false;
+	protected Record record;
 	protected String dueDate = "";
 	protected int circulations = 0;
+	protected Status status = Status.AVAILABLE;
 	
 	
 	/**
@@ -24,21 +22,19 @@ public class Item {
 	 * @param section
 	 * @param circulating
 	 */
-	public Item(String recordNum, int barcode, Location location) {
-		this.recordNum = recordNum;
+	public Item(Record record, long barcode, Location location) {
+		this.record = record;
 		this.barcode = barcode;
 		this.location = location;
 	}
 	
-	public Item() {};
-	
 	//-------------GETTERS AND SETTERS---------------------
 	
-	public int getBarcode() {
+	public long getBarcode() {
 		return barcode;
 	}
 	
-	public void setBarcode(int barcode) {
+	public void setBarcode(long barcode) {
 		this.barcode = barcode;
 	}
 	
@@ -48,17 +44,6 @@ public class Item {
 	
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-	public boolean isCheckedOut() {
-		return checkedOut;
-	}
-
-	public void setCheckedOut(boolean checkedOut) {
-		this.checkedOut = checkedOut;
-		if(checkedOut) {
-			setDueDate();
-		}
 	}
 
 	public String getDueDate() {
@@ -78,16 +63,24 @@ public class Item {
 		this.circulations = circulations;
 	}
 	
-	public String getRecordNum() {
-		return recordNum;
+	public Record getRecord() {
+		return record;
 	}
 	
-	public void setRecordNum(String recordNum) {
-		this.recordNum = recordNum;
+	public void setRecordNum(Record record) {
+		this.record = record;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	@Override
 	public String toString() {
-		return "Record Number: " + recordNum + "\nBarcode: " + barcode + "\nLocation: " + location;
+		return "Record Number: " + record.getRecordNum() + "\nBarcode: " + barcode + "\nLocation: " + location;
 	}
 }

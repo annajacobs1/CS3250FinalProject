@@ -75,7 +75,7 @@ public class CheckInPane extends VBox{
 					
 					getChildren().add(itemPane);
 					
-					if(item.isCheckedOut()) {
+					if(item.getStatus() == Status.CHECKED_OUT) {
 						checkInBtn.setVisible(true);
 					}
 					else {

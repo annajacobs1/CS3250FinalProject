@@ -13,28 +13,26 @@ public class AvItemRecord extends Record{
 	}
 	
 	//--------------CONSTRUCTORS----------------------------
-	public AvItemRecord(String recordNum, String title, Section section, int publicationYear, 
-			AVType type) {
-		super(recordNum, title, section);
+	public AvItemRecord(String recordNum, String title, String callNum, Section section, 
+			int publicationYear, AVType type) {
+		super(recordNum, title, section, callNum);
 		this.publicationYear = publicationYear;
 		this.setType(type);
-		setCallNum();
 	}
 	
-	public AvItemRecord(String recordNum, String title, Section section, int publicationYear, 
-			int discCount, int volume, AVType type) {
-		super(recordNum, title, section);
+	public AvItemRecord(String recordNum, String title, String callNum, Section section, 
+			int publicationYear, int discCount, int volume, AVType type) {
+		super(recordNum, title, section, callNum);
 		this.discCount = discCount;
 		this.volume = volume;
 		this.setType(type);
-		setCallNum();
 		
 	}
 	
-	public AvItemRecord(String recordNum, String title, Section section, int publicationYear, 
-			int discCount) 
+	public AvItemRecord(String recordNum, String title, String callNum, Section section, 
+			int publicationYear, int discCount) 
 	{
-		super(recordNum, title, section);
+		super(recordNum, title, section, callNum);
 		this.discCount = discCount;
 	}
 	
@@ -71,15 +69,5 @@ public class AvItemRecord extends Record{
 	public void setType(AVType type) {
 		this.type = type;
 	}
-	
-
-	//-------------OVERRIDE---------------------
-	@Override
-	protected void setCallNum() {
-		// TODO Logic to set callNum for new item
-		
-	}
-
-
 	
 }

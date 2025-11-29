@@ -6,21 +6,19 @@ public class PeriodicalRecord extends Record{
 	private int volume;
 	private String publicationDate;
 	
-	public PeriodicalRecord(String recordNum, String title, Section section,
+	public PeriodicalRecord(String recordNum, String title, String callNum, Section section,
 			String edition, String publicationDate) {
-		super(recordNum, title, section);
+		super(recordNum, title, section, callNum);
 		this.setEdition(edition);
 		this.setPublicationDate(publicationDate);
-		setCallNum();
 	}
 	
-	public PeriodicalRecord(String recordNum, String title, Section section, 
+	public PeriodicalRecord(String recordNum, String title, String callNum, Section section, 
 			String edition, String publicationDate, int volume) {
-		super(recordNum, title, section);
+		super(recordNum, title, section, callNum);
 		this.edition = edition;
 		this.publicationDate = publicationDate;
 		this.setVolume(volume);
-		setCallNum();
 	}
 
 	public String getEdition() {
@@ -46,11 +44,5 @@ public class PeriodicalRecord extends Record{
 	public void setPublicationDate(String publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-	
-	//-------------OVERRIDE---------------------
-	@Override
-	protected void setCallNum() {
-		// TODO Logic to set callNum for new item
-		
-	}
+
 }

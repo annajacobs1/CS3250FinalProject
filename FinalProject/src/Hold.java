@@ -5,11 +5,12 @@ public class Hold {
 	private Item item;
 	private String datePlaced;
 	private String dateExpires;
-	private Location pickUpLocation = item.location;
+	private Location pickUpLocation;
 	
 	public Hold(Item item, String datePlaced) {
 		this.setItem(item);
 		this.setDatePlaced(datePlaced);
+		this.pickUpLocation = item.location;
 		setDateExpires();
 	}
 	

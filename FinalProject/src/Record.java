@@ -24,10 +24,11 @@ public abstract class Record {
 	 * @param circulating
 	 * @param section
 	 */
-	public Record(String recordNum, String title, Section section) {
+	public Record(String recordNum, String title, Section section, String callNum) {
 		this.recordNum = recordNum;
 		this.title = title;
 		this.section = section;
+		this.callNum = callNum;
 	}
 
 
@@ -54,6 +55,10 @@ public abstract class Record {
 		return callNum;
 	}
 	
+	public void setCallNum(String callNum) {
+		this.callNum = callNum;
+	}
+	
 	public boolean isCirculating() {
 		return circulating;
 	}
@@ -77,6 +82,4 @@ public abstract class Record {
 	public void setSection(Section section) {
 		this.section = section;
 	}
-	
-	protected abstract void setCallNum();
 }
