@@ -5,6 +5,10 @@ import javafx.scene.image.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 /**
  * Hold ArrayLists for items, patrons, employees, and records. Handle
  * file I/O to get data, add data, remove data. Handle search for data
@@ -164,6 +168,7 @@ public class Data {
 			// Get the book records and convert to BookRecord type, add to records list
 			ResultSet bookRecordsRs = SQLConnection.sqlQuery("SELECT * FROM book_record LEFT JOIN "
 					+ "record ON book_record.record_number = record.record_number");
+			
 			while(bookRecordsRs.next()) {
 				String recordNumber = bookRecordsRs.getString("record_number");
 				String title = bookRecordsRs.getString("title");
@@ -283,6 +288,10 @@ public class Data {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		catch (Exception ex) {
+		    System.err.println("Failed loading record");
+		    ex.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<Hold> getHolds() {
@@ -321,8 +330,8 @@ public class Data {
 		setRecords();
 		setItems();
 		setPatrons();
+		setHolds();
 		setEmployees();
-		
 	}
 	
 	/**
@@ -561,7 +570,50 @@ public class Data {
 				hold.getDatePlaced() + "'");
 	}
 	
+	/**
+	 * Add a checkout to the checkout table. set item status to checked out in item table
+	 * @param patron patron who is making the checkout
+	 * @param item the item being checked out
+	 */
+	public static void addCheckout(Patron patron, Item item) {
+		LocalDate currentDate = LocalDate.now();
+		LocalDate dueDate = currentDate.plus(2, ChronoUnit.WEEKS);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDueDate = dueDate.format(formatter);
+		
+		item.setDueDate(formattedDueDate);
+		
+		SQLConnection.sqlUpdate("UPDATE item SET status = 'CHECKED_OUT' WHERE barcode = " +
+				item.getBarcode() + "'");
+		
+		SQLConnection.sqlUpdate("INSERT INTO checkout VALUES('" + patron.getUsername() + "'," 
+				+ item.getBarcode() + ",'" + formattedDueDate + "')");
+	}
+	
+	/**
+	 * delete a checkout from checkout table. set item status to available.
+	 * @param item the item being checked in
+	 */
+	public static void removeCheckout(Item item) {
+		SQLConnection.sqlUpdate("UPDATE item SET status = 'AVAILABLE' WHERE barcode = " + item.getBarcode());
+		SQLConnection.sqlUpdate("UPDATE item SET circulations = circulations + 1 WHERE barcode = "
+				+ item.getBarcode());
+		
+		SQLConnection.sqlUpdate("DELETE FROM checkout WHERE barcode = " + item.getBarcode());
+	}
+	
+	/**
+	 * delete a fine
+	 * @param fine fine to be deleted
+	 */
+	public static void removeFine(Fine fine) {
+		SQLConnection.sqlUpdate("DELETE FROM fine WHERE amount = " + fine.getAmount() + " AND item = " +
+				fine.getItem().getBarcode() + " AND date_began = '" + fine.getDateBegan() + "'");
+	}
+	
 	//----------------------SEARCH FOR DATA-----------------------------
+
 	
 	/**
 	 * Given a barcode, iterates over items array and returns item with matching
@@ -593,16 +645,77 @@ public class Data {
 	}
 	
 	/**
+	 * Given a patron username, iterates over patrons array and returns patron with matching
+	 * username or null if not found
+	 */
+	public static Patron searchPatronByUsername(String username) {
+		Patron patronFound = null;
+		for(Patron patron : patrons) {
+			if(patron.getUsername().equals(username)) {
+				patronFound = patron;
+				break;
+			}
+		}
+		return patronFound;
+	}
+	
+	/**
 	 * Given a record number, iterates over records array and returns record with matching
 	 * record number or null if not found
 	 */
 	public static Record searchByRecordNum(String recordNum) {
 		Record recordFound = null;
 		for(Record record : records) {
-			if(record.getRecordNum() == recordNum) {
+			if(record.getRecordNum().equals(recordNum)) {
 				recordFound = record;
+				break;
 			}
 		}
 		return recordFound;
+	}
+	
+	/**
+	 * Given an item, returns ArrayList of all holds on the item
+	 * @param item
+	 * @return
+	 */
+	public static ArrayList<Hold> searchHoldsByItem(Item item) {
+		ArrayList<Hold> holdsFound = new ArrayList<Hold>();
+		for(Hold hold : holds) {
+			if(hold.getItem().equals(item)) {
+				holdsFound.add(hold);
+			}
+		}
+		return holdsFound;
+	}
+	
+	/**
+	 * Given a record, returns ArrayList of all holds on the item
+	 * @param item
+	 * @return
+	 */
+	public static ArrayList<Hold> searchHoldsByRecord(Record record) {
+		ArrayList<Hold> holdsFound = new ArrayList<Hold>();
+		for(Hold hold : holds) {
+			if(hold.getItem().getRecord().equals(record)) {
+				holdsFound.add(hold);
+			}
+		}
+		return holdsFound;
+	}
+	
+	/**
+	 * Given a record, returns ArrayList of all Items of that record
+	 * @param record
+	 * @return
+	 */
+	public static ArrayList<Item> searchItemsByRecord(Record record) {
+		ArrayList<Item> itemsFound = new ArrayList<Item>();
+		for(Item item : items) {
+			if(item.getRecord().equals(record)) {
+				itemsFound.add(item);
+			}
+		}
+		return itemsFound;
 	}
 }

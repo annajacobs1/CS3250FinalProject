@@ -147,6 +147,7 @@ public class Patron extends User{
 		if(!hasStop) {
 			checkouts.add(item);
 			item.setStatus(Status.CHECKED_OUT);
+			Data.addCheckout(this, item);
 			return true;
 		}
 		else {
@@ -163,11 +164,19 @@ public class Patron extends User{
 				break;
 			}
 		}
+		Data.removeCheckout(item);
 		
 	}
 	
 	public void payFine(Fine fine) {
-		// TODO: remove fine from fines
+		for(Fine i : fines) {
+			if(i.equals(fine)) {
+				fines.remove(fine);
+				break;
+			}
+		}
+		
+		Data.removeFine(fine);
 	}
 	
 	public boolean findItemInCheckouts(Item item) {

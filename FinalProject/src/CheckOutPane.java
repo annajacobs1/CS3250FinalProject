@@ -13,13 +13,16 @@ public class CheckOutPane extends VBox{
 	private Patron patron;
 	private ItemInfoPane itemPane;
 	
-	public CheckOutPane() {
+	public CheckOutPane(Item selectedItem) {
 		// title label
 		Label checkOutLbl = new Label("Check Out Item");
 					
 		// input barcode for desired item
 		Label barcodeLbl = new Label("Enter the Barcode:");
 		TextField barcodeTxt = new TextField();
+		if(selectedItem != null) {
+			barcodeTxt.setText(Long.toString(selectedItem.getBarcode()));
+		}
 		
 		// search for item with entered barcode
 		Button searchBtn = new Button("Search for Barcode");

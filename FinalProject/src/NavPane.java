@@ -94,7 +94,7 @@ public class NavPane extends FlowPane {
 		});
 		
 		checkOutBtn.setOnAction(event -> {
-			mainPane.setCenterPane(new CheckOutPane());
+			mainPane.setCenterPane(new CheckOutPane(null));
 		});
 		
 		reportsBtn.setOnAction(event -> {
@@ -102,7 +102,7 @@ public class NavPane extends FlowPane {
 		});
 		
 		accountBtn.setOnAction(event -> {
-			mainPane.setCenterPane(new AccountPane());
+			mainPane.setCenterPane(new AccountPane(Main.getUser()));
 		});
 	}
 

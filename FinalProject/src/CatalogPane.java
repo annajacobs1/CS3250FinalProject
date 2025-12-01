@@ -42,8 +42,10 @@ public class CatalogPane extends VBox{
 		
 		if(Main.getUser() instanceof Employee) {
 			if(((Employee)Main.getUser()).getAccessLevel() == AccessLevel.ADD) {
-				Button addBtn = new Button("Add an item");
-				// TODO: button click takes you to form to input new item info
+				Button addBtn = new Button("Add a record");
+				addBtn.setOnAction(e -> {
+					Main.getMainPane().setCenter(new RecordAddPane());
+				});
 				getChildren().add(addBtn);
 			}
 		}

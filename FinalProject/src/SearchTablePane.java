@@ -1,19 +1,20 @@
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+
+import javafx.scene.image.ImageView;
 
 /**
  * Generic class to display a table of all items in an array list.
@@ -48,7 +49,16 @@ public class SearchTablePane<T> extends VBox{
 			};
 			
 			row.setOnMouseClicked(e -> {
-				// open ItemInfoPane for 
+				if(e.getClickCount() == 2 && (!row.isEmpty())) {
+					T rowData = row.getItem();
+					
+					if(rowData instanceof Record) {
+						Main.getMainPane().setCenterPane(new RecordViewPane((Record)rowData));
+					}
+					if(rowData instanceof User) {
+						Main.getMainPane().setCenterPane(new AccountPane((User)rowData));
+					}
+				}
 			});
 			
 			return row;
@@ -67,6 +77,24 @@ public class SearchTablePane<T> extends VBox{
 		
 		TableColumn<T, Image> coverCol = new TableColumn<>(imageName);
 		coverCol.setCellValueFactory(new PropertyValueFactory<T, Image>("image"));
+		coverCol.setCellFactory(col -> new TableCell<T, Image>() {
+			private ImageView imageView = new ImageView();
+			{
+				imageView.setFitHeight(50);
+				imageView.setFitWidth(100);
+				imageView.setPreserveRatio(true);
+			}
+			
+			@Override protected void updateItem(Image item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty || item == null) {
+					setGraphic(null);
+				} else {
+					imageView.setImage(item);
+					setGraphic(imageView);
+				}
+			}
+		});
 		
 		ArrayList<TableColumn<T, ?>> cols = new ArrayList<TableColumn<T, ?>>();
 		cols.add(coverCol);

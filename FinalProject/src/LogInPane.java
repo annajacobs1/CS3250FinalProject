@@ -34,7 +34,7 @@ public class LogInPane extends VBox{
 		// Sets username and password members to the input
 		Button logInBtn = new Button("Log In");
 		
-		getChildren().addAll(titleLbl, usernameLbl, usernameTxt, passwordLbl, passwordTxt, logInBtn);
+		getChildren().addAll(titleLbl, usernameLbl, usernameTxt, passwordLbl, passwordTxt, errorLbl, logInBtn);
 		
 		logInBtn.setOnAction(event -> {
 			password = passwordTxt.getText();
@@ -72,6 +72,7 @@ public class LogInPane extends VBox{
 			&& user.getUsername().equals(username)
 			) {
 				foundUser = user;
+				break;
 			}
 		}
 		for(User user : Data.getEmployees()) {
@@ -79,6 +80,7 @@ public class LogInPane extends VBox{
 			&& user.getUsername().equals(username)
 			) {
 				foundUser = user;
+				break;
 			}
 		}
 		if(foundUser != null) {

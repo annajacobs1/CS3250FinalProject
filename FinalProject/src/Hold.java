@@ -63,4 +63,9 @@ public class Hold {
 		this.pickUpLocation = pickUpLocation;
 	}
 	
+	@Override
+	public String toString() {
+		return item.getBarcode() + "\t" + datePlaced;
+	}
+	
 }

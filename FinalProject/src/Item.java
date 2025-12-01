@@ -50,9 +50,9 @@ public class Item {
 		return dueDate;
 	}
 
-	// Due date should automatically be set when item is checked out
-	private void setDueDate() {
-		// TODO validate date format, calculate due date
+	
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
 	}
 
 	public int getCirculations() {
