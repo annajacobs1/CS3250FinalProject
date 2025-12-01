@@ -553,9 +553,17 @@ public class Data {
 	public static void addHold(Hold hold, Patron patron) {
 		holds.add(hold);
 		
+		LocalDate currentDate = LocalDate.now();
+		LocalDate dateExpires = currentDate.plus(2, ChronoUnit.WEEKS);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDateExpires = dateExpires.format(formatter);
+		
+		hold.setDateExpires(formattedDateExpires);
+		
 		SQLConnection.sqlUpdate("INSERT INTO hold VALUES('" + patron.getUsername() + "'," +
-				hold.getItem().getBarcode() + ",'" + hold.getDatePlaced() + "','" +
-				hold.getDateExpires() + "')");
+				hold.getItem().getBarcode() + ",'" + currentDate + "','" +
+				formattedDateExpires + "')");
 	}
 	
 	public static void removeHold(Hold hold, Patron patron) {

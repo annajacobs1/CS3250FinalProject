@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -124,10 +126,17 @@ public class Patron extends User{
 	// ability to complete following behaviors should depend on hasStop
 	
 	public void placeHold(Item item) {
-		String today = "";
-		// TODO: today should be the current date properly formatted
-		Hold hold = new Hold(item, today);
-		holds.add(hold);
+		
+		
+//		LocalDate today = LocalDate.now();
+//		
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		String formattedDateExpires = dateExpires.format(formatter);
+//		
+//		Data.addHold(new Hold(item, today), this);
+//		
+//		Hold hold = new Hold(item, today);
+//		holds.add(hold);
 	}
 	
 	public void removeHold(Item item) {

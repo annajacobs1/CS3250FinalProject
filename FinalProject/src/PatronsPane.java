@@ -40,7 +40,9 @@ public class PatronsPane extends VBox{
 		if(Main.getUser() instanceof Employee) {
 			if(((Employee)Main.getUser()).getAccessLevel() == AccessLevel.ADD) {
 				Button addBtn = new Button("Add Patron");
-				// TODO: button click takes you to form to input new patron info
+				addBtn.setOnAction(e -> {
+					Main.getMainPane().setCenter(new PatronAddPane());
+				});
 				getChildren().add(addBtn);
 			}
 		}

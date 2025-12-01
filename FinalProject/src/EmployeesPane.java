@@ -33,8 +33,10 @@ public class EmployeesPane extends VBox{
 		
 		employeesPane.setCols(columns);
 		
-		// TODO: this button takes you to a form to input new employee information
 		Button addBtn = new Button("Add Employee");
+		addBtn.setOnAction(e -> {
+			Main.getMainPane().setCenter(new EmployeeAddPane());
+		});
 		getChildren().addAll(employeeSearchLbl, employeesPane, addBtn);
 	}
 }

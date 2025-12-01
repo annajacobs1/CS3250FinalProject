@@ -72,6 +72,7 @@ public class ItemViewEditPane extends GridPane{
 		
 		Button holdBtn = new Button("Place Hold on Item");
 		GridPane.setConstraints(holdBtn, 2, 6);
+		holdBtn.setOnAction(e -> Main.getMainPane().setCenter(new PlaceHoldPane(item)));
 		
 		getChildren().addAll(backBtn, barcodeLbl, barcodeTxt, locationLbl, locationCmb);
 		if(item.getStatus() == Status.AVAILABLE && item.getRecord().isCirculating()) {

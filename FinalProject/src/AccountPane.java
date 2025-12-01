@@ -68,8 +68,11 @@ public class AccountPane extends VBox{
 		Label accessLbl = new Label("Access Level: ");
 		ComboBox<AccessLevel> accessCmb = new ComboBox<>();
 		accessCmb.getItems().setAll(AccessLevel.values());
-		GridPane.setConstraints(cardNumLbl, 2, 3);
-		GridPane.setConstraints(cardNumTxt, 3, 3);
+		if(user instanceof Employee) {
+			accessCmb.setValue(((Employee)user).getAccessLevel());
+		}
+		GridPane.setConstraints(accessLbl, 2, 3);
+		GridPane.setConstraints(accessCmb, 3, 3);
 		
 		Label addressLbl = new Label("Address: ");
 		TextField addressTxt = new TextField();
@@ -127,6 +130,10 @@ public class AccountPane extends VBox{
 		Button saveBtn = new Button("Save Changes");
 		GridPane.setConstraints(saveBtn, 0, 8);
 		
+		Label saveLbl = new Label("Changes saved!");
+		GridPane.setConstraints(saveLbl, 1, 8);
+		saveLbl.setVisible(false);
+		
 		Button finesBtn = new Button("View Fines");
 		GridPane.setConstraints(finesBtn, 0, 9);
 		
@@ -137,7 +144,7 @@ public class AccountPane extends VBox{
 		GridPane.setConstraints(checkoutsBtn, 2, 9);
 		
 		idPane.getChildren().addAll(titleLbl, infoSub, firstNameLbl, firstNameTxt, lastNameLbl,
-				lastNameTxt);
+				lastNameTxt, usernameLbl, usernameTxt);
 		
 		// card number should NOT be editable after creation
 		cardNumTxt.setEditable(false);
@@ -233,9 +240,13 @@ public class AccountPane extends VBox{
 				((Patron)user).setEmail(emailTxt.getText());
 				((Patron)user).setPhone(phoneTxt.getText());
 				((Patron)user).setHasStop(stopCmb.getValue());
+				((Patron)user).setHomeLocation(homeCmb.getValue());
 				
 				// TODO: update changes in db
 			}
+			
+			saveLbl.setVisible(true);
+			
 		});
 		
 	}
