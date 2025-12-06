@@ -24,18 +24,34 @@ import javafx.scene.image.ImageView;
  */
 public class SearchTablePane<T> extends VBox{
 	private ComboBox<String> searchFieldMenu = new ComboBox<String>();
+	private TextField searchTxt;
 	private TableView<T> table;
 	private ObservableList<T> listToDisplay;
+	private ArrayList<T> itemsToDisplay;
 	
-	public SearchTablePane(ArrayList<T> itemsToDisplay, ArrayList<String> options) {
+	public SearchTablePane(ArrayList<T> itemsToDisplay, ArrayList<String> options, SearchHandler searchHandler) {
+		this.itemsToDisplay = itemsToDisplay;
+		
 		FlowPane searchPane = new FlowPane();
 		
 		table = new TableView<T>();
 		
 		setFieldOptions(options);
-		TextField searchTxt = new TextField();
+		searchTxt = new TextField();
 		Button searchBtn = new Button("Search");
-		searchPane.getChildren().addAll(searchFieldMenu, searchTxt, searchBtn);
+		searchBtn.setOnAction(e -> {
+			String col = searchFieldMenu.getValue();
+			String val = searchTxt.getText();
+			searchHandler.search(col, val);
+		});
+		Button resetBtn = new Button("Reset Search");
+		resetBtn.setOnAction(e -> {
+			listToDisplay = FXCollections.observableList(itemsToDisplay);
+			table.setItems(listToDisplay);
+			searchTxt.setText("");
+		});
+		
+		searchPane.getChildren().addAll(searchFieldMenu, searchTxt, searchBtn, resetBtn);
 		
 		listToDisplay = FXCollections.observableList(itemsToDisplay);
 		table.setItems(listToDisplay);
@@ -119,5 +135,10 @@ public class SearchTablePane<T> extends VBox{
 		}
 		
 		this.table.getColumns().setAll(cols);
+	}
+	
+	public void setItems(ArrayList<T> items) {
+		listToDisplay = FXCollections.observableList(items);
+		table.setItems(listToDisplay);
 	}
 }

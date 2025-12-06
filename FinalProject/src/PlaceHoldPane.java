@@ -1,3 +1,4 @@
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,16 @@ public class PlaceHoldPane extends GridPane {
 	private ItemInfoPane itemPane;
 	
 	public PlaceHoldPane(Item selectedItem) {
+		setPadding(new Insets(10));
+		setVgap(7);
+		setHgap(10);
+		
+		Label placeholder1 = new Label("");
+		GridPane.setConstraints(placeholder1, 3, 1);
+		Label placeholder2 = new Label("");
+		GridPane.setConstraints(placeholder2, 4, 1);
+		getChildren().addAll(placeholder1, placeholder2);
+		
 		// title label
 		Label titleLbl = new Label("Place a Hold on an Item");
 		GridPane.setConstraints(titleLbl, 0, 0);
@@ -44,6 +55,7 @@ public class PlaceHoldPane extends GridPane {
 		
 		// to display message if card number search fails
 		Label patronErrLbl = new Label("");
+		GridPane.setConstraints(patronErrLbl, 1, 10);
 		
 		// Employees do not place holds on books for themselves. Place page
 		// is used for employees to place holds on behalf of patrons.
@@ -54,9 +66,11 @@ public class PlaceHoldPane extends GridPane {
 		// To add item to patron's checkouts
 		Button placeHoldBtn = new Button("Place Hold");
 		placeHoldBtn.setVisible(false);
+		GridPane.setConstraints(placeHoldBtn, 0, 10);
 		
 		// To display when the hold place is successful
 		Label successLbl = new Label("");
+		GridPane.setConstraints(successLbl, 0, 11);
 		
 		getChildren().addAll(placeHoldBtn, successLbl);
 		
@@ -79,7 +93,7 @@ public class PlaceHoldPane extends GridPane {
 				
 				itemPane = new ItemInfoPane(item);
 				GridPane.setConstraints(itemPane, 0, 3);
-				GridPane.setColumnSpan(itemPane, 5);
+				GridPane.setColumnSpan(itemPane, 7);
 				GridPane.setRowSpan(itemPane, 5);
 				
 				getChildren().add(itemPane);
@@ -115,9 +129,11 @@ public class PlaceHoldPane extends GridPane {
 					patron = Data.searchByCardNum(cardNum);
 					
 					if(patron.checkOut(item)) {
-						successLbl.setText("Check Out Successful!");
+						successLbl.setText("Hold placed successfully!");
 						barcodeTxt.setText("");
 						patronTxt.setText("");
+						patronErrLbl.setText("");
+						barcodeErrLbl.setText("");
 						getChildren().removeAll(itemPane, placeHoldBtn);
 					} else {
 						patronErrLbl.setText("Entered account has a stop");
@@ -127,7 +143,7 @@ public class PlaceHoldPane extends GridPane {
 				} catch (NullPointerException e) {
 					patronErrLbl.setText("No patron found.");
 				} catch(NumberFormatException e) {
-					patronErrLbl.setText("Please enter a number");
+					patronErrLbl.setText("Please enter a card number.");
 				}
 				
 			}

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -9,6 +10,8 @@ import javafx.scene.layout.VBox;
  * to employees with "Add" access level.
  */
 public class EmployeesPane extends VBox{
+	private SearchTablePane<Employee> employeesPane;
+	
 	public EmployeesPane() {
 		Label employeeSearchLbl = new Label("Search Employees");
 		
@@ -17,8 +20,8 @@ public class EmployeesPane extends VBox{
 		options.add("Last Name");
 		options.add("Username");
 		
-		SearchTablePane<Employee> employeesPane = new SearchTablePane<Employee>(Data.getEmployees(),
-				options);
+		employeesPane = new SearchTablePane<Employee>(Data.getEmployees(),
+				options, new SearchEmployees());
 		
 		ArrayList<String[]> columns = new ArrayList<String[]>();
 		String[] firstNameCol = {"First Name", "firstName"};
@@ -38,5 +41,30 @@ public class EmployeesPane extends VBox{
 			Main.getMainPane().setCenter(new EmployeeAddPane());
 		});
 		getChildren().addAll(employeeSearchLbl, employeesPane, addBtn);
+	}
+	
+	public class SearchEmployees implements SearchHandler{
+		public void search(String col, String val) {
+			
+			ArrayList<Employee> resultArray = new ArrayList<>();
+			
+			if(!val.equals("")) {
+				switch(col) {
+				case "First Name":
+					resultArray = Data.searchEmployeesByFirstName(val);
+					break;
+				case "Last Name":
+					resultArray = Data.searchEmployeesByLastName(val);
+					break;
+				case "Username":
+					resultArray = Data.searchEmployeesByUsername(val);
+					break;
+				}
+			} else {
+				employeesPane.setItems(Data.getEmployees());
+			}
+			
+			employeesPane.setItems(resultArray);
+		}
 	}
 }

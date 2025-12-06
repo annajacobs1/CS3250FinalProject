@@ -45,10 +45,9 @@ CREATE TABLE record (
 CREATE TABLE item (
 	barcode bigint,
     location enum('MAIN', 'NORTH', 'SOUTH', 'EAST', 'WEST'),
-    checked_out boolean,
     record_number char(9),
     circulations int,
-    status enum('s
+    status enum('AVAILABLE', 'CHECKED_OUT', 'ON_HOLDSHELF', 'IN_EVAL', 'IN_MENDING', 'IN_TRANSIT'),
     PRIMARY KEY(barcode),
     FOREIGN KEY(record_number) REFERENCES record(record_number)
 );
@@ -113,7 +112,7 @@ CREATE TABLE av_record (
 -- represent a periodical (newspaper or magazine) the library may or may not have copies of
 CREATE TABLE periodical_record (
 	record_number char(9),
-    edition varchar(3),
+    edition varchar(30),
     volume integer,
     publication_date date,
     PRIMARY KEY(record_number),

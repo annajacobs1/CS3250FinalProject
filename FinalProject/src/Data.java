@@ -433,6 +433,7 @@ public class Data {
 		records.add(record);
 		
 		String imagePath = record.getImage().getUrl();
+		System.out.println(imagePath);
 		
 		String circulating;
 		if(record.isCirculating()) {
@@ -593,7 +594,7 @@ public class Data {
 		item.setDueDate(formattedDueDate);
 		
 		SQLConnection.sqlUpdate("UPDATE item SET status = 'CHECKED_OUT' WHERE barcode = " +
-				item.getBarcode() + "'");
+				item.getBarcode());
 		
 		SQLConnection.sqlUpdate("INSERT INTO checkout VALUES('" + patron.getUsername() + "'," 
 				+ item.getBarcode() + ",'" + formattedDueDate + "')");
@@ -674,7 +675,7 @@ public class Data {
 	public static Record searchByRecordNum(String recordNum) {
 		Record recordFound = null;
 		for(Record record : records) {
-			if(record.getRecordNum().equals(recordNum)) {
+			if(record.getRecordNum().toLowerCase().equals(recordNum.toLowerCase())) {
 				recordFound = record;
 				break;
 			}
@@ -726,4 +727,297 @@ public class Data {
 		}
 		return itemsFound;
 	}
+	
+	/**
+	 * Given a value for a column, return an array list of matching records
+	 */
+	public static ArrayList<Record> searchBooksByColumnValue(String col, String val) {
+		ResultSet booksRs = SQLConnection.sqlQuery("SELECT * FROM book_record LEFT JOIN record "
+				+ "ON book_record.record_number = record.record_number WHERE " + col + " = " + val);
+		
+		ArrayList<Record> records = new ArrayList<>();
+		try {
+			while(booksRs.next()) {
+				String recordNumber = booksRs.getString("record_number");
+				String title = booksRs.getString("title");
+				String callNumber = booksRs.getString("call_number");
+				String imagePath = booksRs.getString("image_path");
+				Image image;
+				try {
+					image = new Image(imagePath);
+				} catch(Exception e) {
+					image = new Image("images/default_cover.jpg");
+				}
+				boolean circulating = booksRs.getBoolean("circulating");
+				String sectionStr = booksRs.getString("section");
+				Section section = Section.valueOf(sectionStr);
+				
+				String authorFirstName = booksRs.getString("author_first_name");
+				String authorLastName = booksRs.getString("author_last_name");
+				String publicationDate = booksRs.getDate("publication_date").toString();
+				String edition = booksRs.getString("edition");
+				long isbn = booksRs.getLong("isbn");
+				String genre = booksRs.getString("genre");
+				
+				BookRecord bookRecord = new BookRecord(recordNumber, title, callNumber, authorLastName, 
+						authorFirstName, section, publicationDate, edition, isbn, genre);
+				bookRecord.setCirculating(circulating);
+				bookRecord.setImage(image);
+				
+				records.add(bookRecord);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return records;
+	}
+	
+	/**
+	 * Given a call number, find all records with matching callnum and return in ArrayList
+	 */
+	public static ArrayList<Record> searchRecordsByCallNum(String callNum) {
+		String callNumLower = callNum.toLowerCase();
+		
+		ArrayList<Record> resultRecords = new ArrayList<>();
+		
+		for(Record record : records) {
+			if(record.getCallNum().toLowerCase().equals(callNumLower)) {
+				resultRecords.add(record);
+			}
+		}
+		
+		return resultRecords;
+	}
+	
+	/**
+	 * Given an ISBN, return all records with matching ISBN
+	 */
+	public static ArrayList<Record> searchRecordsByISBN(long isbn){
+		ArrayList<Record> resultRecords = new ArrayList<>();
+		
+		for(Record record : records) {
+			if(record instanceof BookRecord) {
+				if(((BookRecord)record).getIsbn() == isbn) {
+					resultRecords.add(record);
+				}
+			}
+			
+		}
+		
+		return resultRecords;
+	}
+	
+	/**
+	 * Given a title, search for records with matching title
+	 * TODO: improve so that search title does not have to exactly match results
+	 * 		 for them to show up.
+	 */
+	public static ArrayList<Record> searchRecordsByTitle(String title) {
+		String lowerTitle = title.toLowerCase();
+		
+		ArrayList<Record> resultRecords = new ArrayList<>();
+		
+		for(Record record : records) {
+			if(record.getTitle().toLowerCase().equals(lowerTitle)) {
+				resultRecords.add(record);
+			}
+		}
+		
+		return resultRecords;
+	}
+	
+	/**
+	 * Return list of all records of a given section
+	 */
+	public static ArrayList<Record> searchRecordsBySection(String section) {
+		String sectionLower = section.toLowerCase();
+		
+		Section searchSection;
+		
+		ArrayList<Record> resultRecords = new ArrayList<>();
+		
+		if(sectionLower.equals("juvenile fiction") || sectionLower.equals("jf") || sectionLower.equals("juvenile_fiction")) {
+			searchSection = Section.JUVENILE_FICTION;
+		} else if(sectionLower.equals("juvenile non fiction") || sectionLower.equals("jnf") || sectionLower.equals("juvenile non-fiction")
+				|| sectionLower.equals("juvenile nf") || sectionLower.equals("juvenile_non_fiction")) {
+			searchSection = Section.JUVENILE_NON_FICTION;
+		} else if(sectionLower.equals("juvenile picture") || sectionLower.equals("jp") || sectionLower.equals("juvenile_picture")
+				|| sectionLower.equals("picture")) {
+			searchSection = Section.JUVENILE_PICTURE;
+		} else if(sectionLower.equals("juvenile dvd") || sectionLower.equals("jdvd") || sectionLower.equals("juvenile_dvd")
+				|| sectionLower.equals("j dvd")) {
+			searchSection = Section.JUVENILE_PICTURE;
+		} else if(sectionLower.equals("juvenile cd") || sectionLower.equals("jcd") || sectionLower.equals("juvenile_cd")
+				|| sectionLower.equals("j cd")) {
+			searchSection = Section.JUVENILE_CD;
+		} else if(sectionLower.equals("fiction") || sectionLower.equals("adult fiction") || sectionLower.equals("f")) {
+			searchSection = Section.FICTION;
+		} else if(sectionLower.equals("non fiction") || sectionLower.equals("nonfiction") || sectionLower.equals("non-fiction")
+				|| sectionLower.equals("adult non fiction") || sectionLower.equals("adult nonfiction") || sectionLower.equals("adult non-fiction")
+				|| sectionLower.equals("non_fiction")) {
+			searchSection = Section.NON_FICTION;
+		} else if(sectionLower.equals("high_school_fiction") || sectionLower.equals("hsf") || sectionLower.equals("hs f") 
+				|| sectionLower.equals("hs fiction") || sectionLower.equals("high school fiction")) {
+			searchSection = Section.HIGH_SCHOOL_FICTION;
+		} else if(sectionLower.equals("high_school_non_fiction") || sectionLower.equals("high_school_nonfiction") || sectionLower.equals("hsnf")
+				|| sectionLower.equals("hs nf") || sectionLower.equals("high school nonfiction") || sectionLower.equals("high school non-fiction")
+				|| sectionLower.equals("high school nf") || sectionLower.equals("high school non fiction")) {
+			searchSection = Section.HIGH_SCHOOL_NON_FICTION;
+		} else if(sectionLower.equals("young_person_fiction") || sectionLower.equals("ypf") || sectionLower.equals("yp f") 
+				|| sectionLower.equals("yp fiction") || sectionLower.equals("young person fiction")) {
+			searchSection = Section.YOUNG_PERSON_FICTION;
+		} else if(sectionLower.equals("young_person_non_fiction") || sectionLower.equals("young_person_nonfiction") || sectionLower.equals("ypnf")
+				|| sectionLower.equals("yp nf") || sectionLower.equals("young person nonfiction") || sectionLower.equals("young person non-fiction")
+				|| sectionLower.equals("young person nf") || sectionLower.equals("young person non fiction")) {
+			searchSection = Section.YOUNG_PERSON_NON_FICTION;
+		} else if(sectionLower.equals("dvd") || sectionLower.equals("adult dvd") || sectionLower.equals("adult_dvd")) {
+			searchSection = Section.DVD;
+		} else if(sectionLower.equals("cd") || sectionLower.equals("adult cd") || sectionLower.equals("adult_cd")) {
+			searchSection = Section.CD;
+		} else if(sectionLower.equals("periodical") || sectionLower.equals("per")) {
+			searchSection = Section.PERIODICAL;
+		} else if(sectionLower.equals("spanish_non_fiction") || sectionLower.equals("spanish_nonfiction") || sectionLower.equals("spanf")
+				|| sectionLower.equals("spa nf") || sectionLower.equals("spanish nonfiction") || sectionLower.equals("spanish non-fiction")
+				|| sectionLower.equals("spanish nf") || sectionLower.equals("spanish non fiction") || sectionLower.equals("spanish nf")) {
+			searchSection = Section.SPANISH_NON_FICTION;
+		} else if(sectionLower.equals("spanish fiction") || sectionLower.equals("spanish_fiction") || sectionLower.equals("spaf")
+				|| sectionLower.equals("spa f") || sectionLower.equals("spanish f")) {
+			searchSection = Section.SPANISH_FICTION;
+		} else if(sectionLower.equals("TOY")) {
+			searchSection = Section.TOY;
+		} else {
+			return resultRecords;
+		}
+		
+		for(Record record : records) {
+			if(record.getSection() == searchSection) {
+				resultRecords.add(record);
+			}
+		}
+		
+		return resultRecords;
+	}
+	
+	/**
+	 * Return array list of all employees with matching first name
+	 */
+	public static ArrayList<Employee> searchEmployeesByFirstName(String firstName) {
+		String name = firstName.toLowerCase();
+		
+		ArrayList<Employee> resultEmployees = new ArrayList<>();
+		
+		for(Employee employee : employees) {
+			if(employee.getFirstName().toLowerCase().equals(name)) {
+				resultEmployees.add(employee);
+			}
+		}
+		
+		return resultEmployees;
+	}
+	
+	/**
+	 * Return array list of all employees with matching last name
+	 */
+	public static ArrayList<Employee> searchEmployeesByLastName(String lastName) {
+		String name = lastName.toLowerCase();
+		
+		ArrayList<Employee> resultEmployees = new ArrayList<>();
+		
+		for(Employee employee : employees) {
+			if(employee.getLastName().toLowerCase().equals(name)) {
+				resultEmployees.add(employee);
+			}
+		}
+		
+		return resultEmployees;
+	}
+	
+	/**
+	 * Return array list of all employees with matching username
+	 */
+	public static ArrayList<Employee> searchEmployeesByUsername(String username) {
+		String name = username.toLowerCase();
+		
+		ArrayList<Employee> resultEmployees = new ArrayList<>();
+		
+		for(Employee employee : employees) {
+			if(employee.getUsername().toLowerCase().equals(name)) {
+				resultEmployees.add(employee);
+			}
+		}
+		
+		return resultEmployees;
+	}
+	
+	/**
+	 * Return array list of all patrons with matching first name
+	 */
+	public static ArrayList<Patron> searchPatronsByFirstName(String firstName) {
+		String name = firstName.toLowerCase();
+		
+		ArrayList<Patron> resultPatrons = new ArrayList<>();
+		
+		for(Patron patron : patrons) {
+			if(patron.getFirstName().toLowerCase().equals(name)) {
+				resultPatrons.add(patron);
+			}
+		}
+		
+		return resultPatrons;
+	}
+	
+	/**
+	 * Return array list of all patrons with matching last name
+	 */
+	public static ArrayList<Patron> searchPatronsByLastName(String lastName) {
+		String name = lastName.toLowerCase();
+		
+		ArrayList<Patron> resultPatrons = new ArrayList<>();
+		
+		for(Patron patron : patrons) {
+			if(patron.getLastName().toLowerCase().equals(name)) {
+				resultPatrons.add(patron);
+			}
+		}
+		
+		return resultPatrons;
+	}
+	
+	/**
+	 * Return array list of all patrons with matching username
+	 */
+	public static ArrayList<Patron> searchPatronsByUsername(String username) {
+		String name = username.toLowerCase();
+		
+		ArrayList<Patron> resultPatrons = new ArrayList<>();
+		
+		for(Patron patron : patrons) {
+			if(patron.getUsername().toLowerCase().equals(name)) {
+				resultPatrons.add(patron);
+			}
+		}
+		
+		return resultPatrons;
+	}
+	
+	/**
+	 * Return array list of all patrons with matching email
+	 */
+	public static ArrayList<Patron> searchPatronsByEmail(String searchEmail) {
+		String email = searchEmail.toLowerCase();
+		
+		ArrayList<Patron> resultPatrons = new ArrayList<>();
+		
+		for(Patron patron : patrons) {
+			if(patron.getEmail().toLowerCase().equals(email)) {
+				resultPatrons.add(patron);
+			}
+		}
+		
+		return resultPatrons;
+	}
+
+	
 }
