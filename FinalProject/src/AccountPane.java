@@ -231,7 +231,8 @@ public class AccountPane extends VBox{
 			user.setUsername(usernameTxt.getText());
 			if(user instanceof Employee) {
 				((Employee) user).setAccessLevel(accessCmb.getValue());
-				// TODO: update changes in db
+				// update changes in db
+				Data.updateEmployee(user.getUsername(), "access_level", "'" + accessCmb.getValue() + "'");
 			}
 			else if(user instanceof Patron) {
 				((Patron)user).setAddress(addressTxt.getText());
@@ -242,7 +243,15 @@ public class AccountPane extends VBox{
 				((Patron)user).setHasStop(stopCmb.getValue());
 				((Patron)user).setHomeLocation(homeCmb.getValue());
 				
-				// TODO: update changes in db
+				// update changes in db
+				Data.updatePatron(user.getUsername(), "address", "'" + addressTxt.getText() + "'");
+				Data.updatePatron(user.getUsername(), "address", "'" + addressTxt.getText() + "'");
+				Data.updatePatron(user.getUsername(), "card_number", cardNumTxt.getText());
+				Data.updatePatron(user.getUsername(), "date_joined", "'" + dateJoinedPicker.getValue().toString() + "'");
+				Data.updatePatron(user.getUsername(), "email", "'" + emailTxt.getText() + "'");
+				Data.updatePatron(user.getUsername(), "phone", "'" + phoneTxt.getText() + "'");
+				Data.updatePatron(user.getUsername(), "has_stop", "'" + stopCmb.getValue().toString() + "'");
+				Data.updatePatron(user.getUsername(), "home_location", "'" + homeCmb.getValue().toString() + "'");
 			}
 			
 			saveLbl.setVisible(true);
@@ -292,7 +301,7 @@ public class AccountPane extends VBox{
 		cols.add(itemCol);
 		
 		TableColumn<Hold, String> datePlacedCol = new TableColumn<>("Date Placed");
-		itemCol.setCellValueFactory(new PropertyValueFactory<>("datePlaced"));
+		datePlacedCol.setCellValueFactory(new PropertyValueFactory<>("datePlaced"));
 		cols.add(datePlacedCol);
 		
 		TableColumn<Hold, String> dateExpiresCol = new TableColumn<>("Date Expires");
@@ -300,7 +309,7 @@ public class AccountPane extends VBox{
 		cols.add(dateExpiresCol);
 		
 		TableColumn<Hold, Location> locationCol = new TableColumn<>("Pickup Location");
-		itemCol.setCellValueFactory(new PropertyValueFactory<>("pickUpLocation"));
+		dateExpiresCol.setCellValueFactory(new PropertyValueFactory<>("pickUpLocation"));
 		cols.add(locationCol);
 		
 		fineTable.getColumns().setAll(cols);

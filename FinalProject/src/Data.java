@@ -20,6 +20,7 @@ public class Data {
 	private static ArrayList<Employee> employees = new ArrayList<Employee>();
 	private static ArrayList<Record> records = new ArrayList<Record>();
 	private static ArrayList<Hold> holds = new ArrayList<Hold>();
+	private static ArrayList<Fine> fines = new ArrayList<Fine>();
 
 	
 	//----------------GETTERS AND SETTERS-----------------------
@@ -89,7 +90,7 @@ public class Data {
 				// get the fines for the current patron
 				ResultSet finesRs = SQLConnection.sqlQuery("SELECT * FROM "
 						+ "fine WHERE patron = '" + patron.getUsername() + "'");
-				ArrayList<Fine> fines = new ArrayList<Fine>();
+				ArrayList<Fine> patronFines = new ArrayList<Fine>();
 				while(finesRs.next()) {
 					double amount = finesRs.getDouble("amount");
 					String dateBegan = finesRs.getDate("date_began").toString();
@@ -97,7 +98,7 @@ public class Data {
 					Item item = searchByBarcode(barcode);
 					
 					Fine fine = new Fine(dateBegan, item, amount);
-					fines.add(fine);
+					patronFines.add(fine);
 				}
 				
 				// get the holds for the current patron
@@ -113,7 +114,7 @@ public class Data {
 					Hold hold = new Hold(item, datePlaced, dateExpires);
 					patronHolds.add(hold);
 				}
-				patron.setFines(fines);
+				patron.setFines(patronFines);
 				patron.setHolds(patronHolds);
 			}
 		} catch (SQLException e) {
@@ -319,6 +320,29 @@ public class Data {
 		}
 	}
 	
+	public static void setFines() {
+		try {
+			
+			ResultSet finesRs = SQLConnection.sqlQuery("SELECT * FROM fine");
+			while(finesRs.next()) {
+				double amount = finesRs.getDouble("amount");
+				String dateBegan = finesRs.getDate("date_began").toString();
+				long barcode = finesRs.getLong("item");
+				Item item = searchByBarcode(barcode);
+				
+				Fine fine = new Fine(dateBegan, item, amount);
+				fines.add(fine);
+			} 
+		}
+			catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static ArrayList<Fine> getFines() {
+		return fines;
+	}
+	
 	//----------------------ADD/DELETE DATA-----------------------------
 	
 	/**
@@ -332,6 +356,7 @@ public class Data {
 		setPatrons();
 		setHolds();
 		setEmployees();
+		setFines();
 	}
 	
 	/**
@@ -1018,6 +1043,86 @@ public class Data {
 		
 		return resultPatrons;
 	}
-
 	
+	/**
+	 * return list of items with more circulations than given integer
+	 */
+	public static ArrayList<Item> searchByHighCircs(int circs) {
+		ArrayList<Item> resultItems = new ArrayList<>();
+		
+		for(Item item : items) {
+			if(item.getCirculations() > circs) {
+				resultItems.add(item);
+			}
+		}
+		
+		return resultItems;
+	}
+
+	//----------------------------UPDATES-----------------------------------
+	
+	/**
+	 * Update given column to given value for the given record number in record table
+	 */
+	public static void updateRecord(String recordNum, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE record SET " + column + " = " + value + 
+				" WHERE record_number = '" + recordNum + "'");
+	}
+	
+	/**
+	 * Update given column to given value for the given record number in book_record table
+	 */
+	public static void updateBookRecord(String recordNum, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE book_record SET " + column + " = " + value + 
+				" WHERE record_number = '" + recordNum + "'");
+	}
+	
+	/**
+	 * Update given column to given value for the given record number in av_record table
+	 */
+	public static void updateAVRecord(String recordNum, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE av_record SET " + column + " = " + value + 
+				" WHERE record_number = '" + recordNum + "'");
+	}
+	
+	/**
+	 * Update given column to given value for the given record number in periodical_record table
+	 */
+	public static void updatePeriodicalRecord(String recordNum, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE periodical_record SET " + column + " = " + value + 
+				" WHERE record_number = '" + recordNum + "'");
+	}
+	
+	/**
+	 * Update pieces for given toy_record
+	 */
+	public static void updateToyRecord(String recordNum, String value) {
+		SQLConnection.sqlUpdate("UPDATE periodical_record SET pieces = " + value + 
+				" WHERE record_number = '" + recordNum + "'");
+	}
+	
+	
+	/**
+	 * Update given column to given value for the given barcode in item table
+	 */
+	public static void updateItem(String barcode, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE item SET " + column + " = " + value + 
+				" WHERE barcode = " + barcode);
+	}
+	
+	/**
+	 * Update given column to given value for the given card number in patron table
+	 */
+	public static void updatePatron(String username, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE patron SET " + column + " = " + value + 
+				" WHERE username = '" + username + "'");
+	}
+	
+	/**
+	 * Update given column to given value for the given username in employee table
+	 */
+	public static void updateEmployee(String username, String column, String value) {
+		SQLConnection.sqlUpdate("UPDATE employee SET " + column + " = " + value + 
+				" WHERE username = '" + username + "'");
+	}
 }

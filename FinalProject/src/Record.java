@@ -82,4 +82,9 @@ public abstract class Record {
 	public void setSection(Section section) {
 		this.section = section;
 	}
+	
+	@Override
+	public String toString() {
+		return "Record Number: " + recordNum + "\nTitle: " + title + "\nCall Number: " + callNum;
+	}
 }

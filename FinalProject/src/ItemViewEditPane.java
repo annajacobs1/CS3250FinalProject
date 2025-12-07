@@ -97,12 +97,16 @@ public class ItemViewEditPane extends GridPane{
 				Button saveBtn = new Button("Save Changes");
 				GridPane.setConstraints(saveBtn, 4, 6);
 				saveBtn.setOnAction(e -> {
+					
 					item.setBarcode(Long.parseLong(barcodeTxt.getText()));
 					item.setLocation(locationCmb.getValue());
 					item.setDueDate((dueDatePicker.getValue()).toString());
 					item.setCirculations(Integer.parseInt(circsTxt.getText()));
 					item.setStatus(statusCmb.getValue());
-					// TODO: Save changes to db
+					// Save changes to db
+					Data.updateItem(barcodeTxt.getText(), "location", "'" + locationCmb.getValue().toString() + "'");
+					Data.updateItem(barcodeTxt.getText(), "circulations", circsTxt.getText());
+					Data.updateItem(barcodeTxt.getText(), "status", "'" + statusCmb.getValue().toString() + "'");
 				});
 				
 				getChildren().add(saveBtn);
