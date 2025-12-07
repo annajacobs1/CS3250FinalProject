@@ -12,6 +12,7 @@ public class EmployeeAddPane extends GridPane{
 		setVgap(7);
 		
 		Label titleLbl = new Label("Add an Employee");
+		titleLbl.getStyleClass().add("title");
 		GridPane.setConstraints(titleLbl, 0, 0);
 		
 		Label firstNameLbl = new Label("First Name: ");

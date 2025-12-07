@@ -37,6 +37,7 @@ public class AccountPane extends VBox{
 		setHoldsBox();
 		
 		Label titleLbl = new Label("View Account");
+		titleLbl.getStyleClass().add("title");
 		GridPane.setConstraints(titleLbl, 0, 0);
 		
 		Label infoSub = new Label("Personal Information");
@@ -262,6 +263,7 @@ public class AccountPane extends VBox{
 	
 	private void setFinesBox() {
 		Label finesLbl = new Label("Fines");
+		finesLbl.getStyleClass().add("title");
 		
 		TableView<Fine> fineTable = new TableView<>();
 		
@@ -291,6 +293,7 @@ public class AccountPane extends VBox{
 	
 	private void setHoldsBox() {
 		Label holdsLbl = new Label("Holds");
+		holdsLbl.getStyleClass().add("title");
 		
 		TableView<Hold> fineTable = new TableView<>();
 		
@@ -324,6 +327,7 @@ public class AccountPane extends VBox{
 	
 	private void setCheckoutsBox() {
 		Label checkoutsLbl = new Label("Checked Out Items");
+		checkoutsLbl.getStyleClass().add("title");
 		
 		TableView<Item> checkoutsTable = new TableView<>();
 		

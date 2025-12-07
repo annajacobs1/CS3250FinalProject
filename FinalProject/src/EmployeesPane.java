@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -14,6 +13,7 @@ public class EmployeesPane extends VBox{
 	
 	public EmployeesPane() {
 		Label employeeSearchLbl = new Label("Search Employees");
+		employeeSearchLbl.getStyleClass().add("title");
 		
 		ArrayList<String> options = new ArrayList<String>();
 		options.add("First Name");

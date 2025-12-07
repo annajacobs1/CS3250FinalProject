@@ -1,0 +1,20 @@
+.root {
+	-fx-background-color: #eae0d5;
+	-fx-font-family: "serif";
+	-fx-font-size: 14px;
+	-fx-padding: 10px;
+	-fx-text-fill: #0a0908;
+}
+
+.button {
+	-fx-color: #22333b;
+	-fx-text-fill: #eae0d5;
+}
+
+.title {
+	-fx-font-size: 16px;
+	-fx-font-family: "sans-serif";
+	-fx-font-weight: bold;
+	-fx-padding: 5px 0px;
+}
+

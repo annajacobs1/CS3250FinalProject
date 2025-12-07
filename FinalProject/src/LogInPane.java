@@ -2,6 +2,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 /**
@@ -18,7 +20,14 @@ public class LogInPane extends VBox{
 		setPrefWidth(100);
 		setPrefHeight(150);
 		
+		Image logo = new Image("images/explore_library.png");
+		ImageView logoView = new ImageView(logo);
+		logoView.setFitWidth(300);
+		logoView.setPreserveRatio(true);
+		
 		Label titleLbl = new Label("Log In");
+		titleLbl.getStyleClass().add("title");
+		
 		Label usernameLbl = new Label("Username");
 		// Text field for user to enter their user name
 		TextField usernameTxt = new TextField();
@@ -34,7 +43,7 @@ public class LogInPane extends VBox{
 		// Sets username and password members to the input
 		Button logInBtn = new Button("Log In");
 		
-		getChildren().addAll(titleLbl, usernameLbl, usernameTxt, passwordLbl, passwordTxt, errorLbl, logInBtn);
+		getChildren().addAll(logoView, titleLbl, usernameLbl, usernameTxt, passwordLbl, passwordTxt, errorLbl, logInBtn);
 		
 		logInBtn.setOnAction(event -> {
 			password = passwordTxt.getText();

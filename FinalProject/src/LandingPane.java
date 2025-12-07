@@ -12,7 +12,9 @@ public class LandingPane extends VBox{
 	public LandingPane() {
 		if(Main.getUser() != null) {
 			Label welcomeLabel = new Label("Welcome in, " + Main.getUser().getFirstName() + "!");
+			welcomeLabel.getStyleClass().add("title");
 			
+			setSpacing(7);
 			
 			int randomIndex = random.nextInt(Data.getItems().size());
 			Item randomItem = Data.getItems().get(randomIndex);

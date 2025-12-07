@@ -26,6 +26,7 @@ public class PlaceHoldPane extends GridPane {
 		
 		// title label
 		Label titleLbl = new Label("Place a Hold on an Item");
+		titleLbl.getStyleClass().add("title");
 		GridPane.setConstraints(titleLbl, 0, 0);
 					
 		// input barcode for desired item

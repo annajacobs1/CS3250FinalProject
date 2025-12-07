@@ -13,6 +13,7 @@ public class CatalogPane extends VBox{
 	
 	public CatalogPane() {
 		Label catalogSearchLbl = new Label("Search Catalog");
+		catalogSearchLbl.getStyleClass().add("title");
 		
 		ArrayList<String> options = new ArrayList<String>();
 		options.add("Author Last Name");

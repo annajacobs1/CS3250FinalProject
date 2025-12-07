@@ -22,7 +22,9 @@ public class Main extends Application{
 		Data.loadData();
 		LogInPane logInPane = new LogInPane();
 		
-		scene = new Scene(logInPane, 750, 500);
+		scene = new Scene(logInPane, 850, 500);
+		scene.getStylesheets().add(getClass().getResource("styles/style.css").toExternalForm());
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		

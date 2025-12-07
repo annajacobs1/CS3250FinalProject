@@ -14,6 +14,7 @@ public class PatronsPane extends VBox{
 	public PatronsPane() {
 		
 		Label patronSearchLbl = new Label("Search Patrons");
+		patronSearchLbl.getStyleClass().add("title");
 		
 		ArrayList<String> options = new ArrayList<String>();
 		options.add("Card Number");

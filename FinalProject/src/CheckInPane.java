@@ -2,7 +2,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -19,6 +18,9 @@ public class CheckInPane extends VBox{
 		public CheckInPane() {
 			// title label
 			Label checkInLbl = new Label("Check In Item");
+			checkInLbl.getStyleClass().add("title");
+			
+			setSpacing(7);
 			
 			// input barcode for desired item
 			Label barcodeLbl = new Label("Enter the Barcode:");

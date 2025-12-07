@@ -42,6 +42,7 @@ public class RecordViewPane extends BorderPane{
 		itemPane = new VBox();
 		itemTable = new TableView<>();
 		Label itemTitle = new Label("Items");
+		itemTitle.getStyleClass().add("title");
 		itemPane.getChildren().addAll(itemTitle, itemTable);
 		
 		setRecordData();

@@ -1,4 +1,6 @@
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
 /**
@@ -11,7 +13,14 @@ public class NavPane extends FlowPane {
 	private MainPane mainPane;
 	
 	public NavPane(MainPane mainPane) {
+		Image logo = new Image("images/explore_library.png");
+		ImageView logoView = new ImageView(logo);
+		logoView.setFitWidth(70);
+		logoView.setPreserveRatio(true);
+		getChildren().add(logoView);
+		
 		this.mainPane = mainPane;
+		this.setHgap(5);
 		
 		// Button to navigate to landing page
 		Button homeBtn = new Button("Home");

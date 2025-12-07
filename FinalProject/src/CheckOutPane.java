@@ -16,6 +16,8 @@ public class CheckOutPane extends VBox{
 	public CheckOutPane(Item selectedItem) {
 		// title label
 		Label checkOutLbl = new Label("Check Out Item");
+		checkOutLbl.getStyleClass().add("title");
+		setSpacing(7);
 					
 		// input barcode for desired item
 		Label barcodeLbl = new Label("Enter the Barcode:");

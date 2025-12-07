@@ -18,6 +18,7 @@ public class PatronAddPane extends GridPane{
 		setVgap(7);
 		
 		Label titleLbl = new Label("Add a Patron");
+		titleLbl.getStyleClass().add("title");
 		GridPane.setConstraints(titleLbl, 0, 0);
 		
 		Label cardNumLbl = new Label("Card Number: ");

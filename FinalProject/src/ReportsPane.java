@@ -22,6 +22,7 @@ public class ReportsPane extends VBox{
 	
 	public ReportsPane() {
 		Label titleLbl = new Label("Reports");
+		titleLbl.getStyleClass().add("title");
 		GridPane.setConstraints(titleLbl, 0, 0);
 		
 		GridPane reportsList = new GridPane();
@@ -85,6 +86,7 @@ public class ReportsPane extends VBox{
 	
 	public void setHoldsTable() {
 		Label holdsLbl = new Label("Holds");
+		holdsLbl.getStyleClass().add("title");
 		
 		TableView<Hold> holdTable = new TableView<>();
 		
@@ -116,6 +118,7 @@ public class ReportsPane extends VBox{
 	
 	private void setFinesTable() {
 		Label finesLbl = new Label("Fines");
+		finesLbl.getStyleClass().add("title");
 		
 		TableView<Fine> fineTable = new TableView<>();
 		
@@ -145,6 +148,7 @@ public class ReportsPane extends VBox{
 	
 	private void setCircsTable() {
 		Label circsLbl = new Label("High Circulation Items");
+		circsLbl.getStyleClass().add("title");
 		
 		TableView<Item> circsTable = new TableView<>();
 		

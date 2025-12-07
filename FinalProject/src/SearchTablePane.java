@@ -31,8 +31,10 @@ public class SearchTablePane<T> extends VBox{
 	
 	public SearchTablePane(ArrayList<T> itemsToDisplay, ArrayList<String> options, SearchHandler searchHandler) {
 		this.itemsToDisplay = itemsToDisplay;
+		this.setSpacing(7);
 		
 		FlowPane searchPane = new FlowPane();
+		searchPane.setHgap(10);
 		
 		table = new TableView<T>();
 		
